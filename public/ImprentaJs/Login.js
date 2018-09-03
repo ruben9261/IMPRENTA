@@ -28,7 +28,6 @@ var Login = function(){
             if(respuesta){
                 if(respuesta.length > 0){
                     window.location.href = "/MainController";
-                    AlertNotify('', 'Éxito', 'Usuario correcto', 'success');
                 }
             }
             AlertNotify('', 'Warning', 'Usuario y/o contraseña inválido', 'danger');

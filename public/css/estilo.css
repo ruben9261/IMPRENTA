@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	margin:0px;
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	min-width:1000px;
+}
+
+#fondo{
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height:100%;
+}
+
+header{
+	background-image: linear-gradient(bottom,#08298A,#084B8A);
+	background-image: -webkit-linear-gradient(bottom,#08298A,#084B8A);
+	background-image: -moz-linear-gradient(bottom,#08298A,#084B8A);
+	background-image: -o-linear-gradient(bottom,#08298A,#084B8A);
+	background-image: -ms-linear-gradient(bottom,#08298A,#084B8A);
+	width:100%;
+	height:50px;
+	color:#FFF;
+}
+
+header table tr td b{
+	font-size:30px;
+	margin-left:20px;
+}
+
+header table tr td label{
+	margin-left:20px;
+}
+
+header table tr td a{
+	margin-left:10px;
+	text-decoration:none;
+	color:#E0E0E0;
+}
+
+.login{
+	width:300px;
+	height:auto;
+	padding:10px;
+	background-color:#1B44AF;
+	margin:auto;
+	margin-top:100px;
+	box-shadow:2px 2px 10px #484848;
+	font-size:14px;
+}
+.login h2{
+	color:#EFF856;
+}
+.login label{
+	color:#FFF;
+}
+.login input, select{
+	width:60%;
+	height:25px;
+	outline:none;
+}
+.login button{
+	width:30%;
+	height:25px;
+	cursor:pointer;
+	background-color:#ECEF7E;
+	border:1px solid #515151;
+	font-weight:bold;
+}
+.login button:hover{
+	background-color:#E6D93E;
+}
+.error{
+	background-color:#D50909;
+	color:#FFF;
+	padding:5px;
+}

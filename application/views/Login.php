@@ -15,7 +15,7 @@
                               <div class="panel panel-heading">Sistema de ventas y almacen</div>
                               <div class="panel panel-body">
                                     <p>
-                                          <img src="img/ventas.jpg"  height="190">
+                                          <img src="/public/images/ventas.jpg"  height="190">
                                     </p>
                                     <form id="frmLogin">
                                           <label>Usuario</label>
