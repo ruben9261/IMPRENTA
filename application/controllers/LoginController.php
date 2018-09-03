@@ -21,6 +21,7 @@ class LoginController extends CI_Controller {
 	public function Login()
 	{
 		$Usuario = $_POST["Usuario"];
+		$Usuario = (object)$Usuario;
 		$this->load->model('LoginModel');
 		$UsuarioResponse=$this->LoginModel->LoginUsuario($Usuario);
 

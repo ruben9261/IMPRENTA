@@ -1,4 +1,5 @@
-<?php
+<?php if( ! defined ('BASEPATH')) exit('error al intentar acceder');
+
 class ClientesModel extends CI_Model {
 		
 	public function _construct()
@@ -7,4 +8,4 @@ class ClientesModel extends CI_Model {
 		$this->load->database('default');
 	}
 	
-?>
+}

@@ -97,16 +97,18 @@ var ListarEmpleados = function(){
 
 
 
-var ObtenerEmpleado = function(){
-
-    var IdEmpleado = 0;
+var ObtenerEmpleado = function(IdUsuario){
+    $("#ModalEmpleado").modal("show");
+    var Usuario = {
+        IdUsuario:IdUsuario
+    };
 
     $.ajax({
         type:"post",
         url:"/EmpleadosController/ObtenerEmpleado",
         // dataType : "json",      
         // contentType: "application/json; charset=utf-8",
-        data: {IdEmpleado:IdEmpleado},
+        data: {Usuario:Usuario},
         success: function(respuesta){
             var Empleado = JSON.parse(respuesta);
             console.log(Empleado);

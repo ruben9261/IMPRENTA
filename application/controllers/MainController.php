@@ -17,16 +17,4 @@ class MainController extends CI_Controller {
         $this->load->view('Main',$data);
 	}
 	
-	public function Empleados(){
-		$this->load->view('Empleados');
-	}
-
-	public function Clientes(){
-		$this->load->view('Clientes');
-	}
-
-	public function Cotizaciones(){
-		$this->load->view('Cotizaciones');
-	}
-	
 }

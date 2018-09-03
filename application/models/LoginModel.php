@@ -22,8 +22,8 @@ class LoginModel extends CI_Model {
 		$this->db->from('Usuario u');
         $this->db->join('Rol r', 'u.IdRol = r.IdRol');
         $this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
-        $this->db->where('u.NombreUsuario',$Usuario["NombreUsuario"]);
-        $this->db->where('u.PasswordUsuario',$Usuario["PasswordUsuario"]);
+        $this->db->where('u.NombreUsuario',$Usuario->NombreUsuario);
+        $this->db->where('u.PasswordUsuario',$Usuario->PasswordUsuario);
 		$string = $this->db->get_compiled_select();
         $query  = $this->db->query($string);
         //$numrow = $query->num_rows();

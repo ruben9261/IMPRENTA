@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <?php require_once "dependencias.php"; ?>
-    <link href="public/css/estilo.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.css">
+    <script src="/public/jquery/jquery-3.2.1.min.js"></script>
+    <link href="/public/css/estilo.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
@@ -24,7 +25,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="inicio.php"><img class="img-responsive logo img-thumbnail" src="../public/images/ventas.jpg" alt="" width="150px" height="150px"></a>
+          <a class="navbar-brand" href="inicio.php"><img class="img-responsive logo img-thumbnail" src="/public/images/ventas.jpg" alt="" width="150px" height="150px"></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
 
@@ -46,7 +47,7 @@
               </ul>
           </li>
 
-          <li><a href="Empleados.php"><span class="glyphicon glyphicon-user"></span>Vendedores</a>
+          <li><a href="/EmpleadosController/Empleados"><span class="glyphicon glyphicon-user"></span>Vendedores</a>
           </li>
 
           <li><a href="../datatable/index.php"><span class="glyphicon glyphicon-usd"></span>Cotizacion
