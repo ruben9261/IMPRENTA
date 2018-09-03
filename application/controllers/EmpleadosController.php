@@ -7,7 +7,8 @@ class EmpleadosController extends CI_Controller {
 	public function _construct()
 	{	parent::_construct();
 		//$this->load->helper('url');
-	    //$this->load->model('LoginModel');
+		//$this->load->model('LoginModel');
+		$this->load->model('EmpleadosModel');
 	}
 
 	public function Empleados(){
@@ -28,7 +29,7 @@ class EmpleadosController extends CI_Controller {
 		$FiltrosEmpleado = $_POST["FiltrosEmpleado"];
 		$FiltrosEmpleado = (object)$FiltrosEmpleado;
 
-		$this->load->model('EmpleadosModel');
+		//$this->load->model('EmpleadosModel');
 		$ListaEmpleados=$this->EmpleadosModel->ListarEmpleados($FiltrosEmpleado);
 
 		$jsonResponse = json_encode($ListaEmpleados);
@@ -40,9 +41,12 @@ class EmpleadosController extends CI_Controller {
 		//nombre del modelo
 		$Usuario = $_POST["Usuario"];
 		$Usuario = (object)$Usuario;
+
 		$this->load->model('EmpleadosModel');
-		$ObtenEmpleado=$this->Empleadosmodel->ObtenerEmpleado($Usuario);
-		$jsonResponse = json_encode($ObtenEmpleado);
+		$Empleado=$this->Empleadosmodel->ObtenerEmpleado($Usuario);
+
+		$jsonResponse = json_encode($Empleado);
+
 		echo $jsonResponse;
 
 	}
@@ -53,6 +57,10 @@ class EmpleadosController extends CI_Controller {
 
 	public function EliminarEmpleado($IdEmpleado){
 
+	}
+
+	public function Prueba(){
+		$this->load->view('Clientes');
 	}
 
 }

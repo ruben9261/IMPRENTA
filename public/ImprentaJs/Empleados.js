@@ -98,7 +98,6 @@ var ListarEmpleados = function(){
 
 
 var ObtenerEmpleado = function(IdUsuario){
-    $("#ModalEmpleado").modal("show");
     var Usuario = {
         IdUsuario:IdUsuario
     };
@@ -111,10 +110,11 @@ var ObtenerEmpleado = function(IdUsuario){
         data: {Usuario:Usuario},
         success: function(respuesta){
             var Empleado = JSON.parse(respuesta);
-            console.log(Empleado);
+            $("#ModalEmpleado").modal("show");
         },
         error: function(error){
-            AlertNotify('', 'Error', 'Error en el servidor consulte con el administrador', 'danger');
+            console.log(error.responseText);
+            //AlertNotify('', 'Error', 'Error en el servidor consulte con el administrador', 'danger');
         }
     });
     return false;
@@ -165,4 +165,12 @@ var EliminarEmpleado = function(){
     return false;
 };
 
-
+function AlertNotify(versionB, titulo, texto, tipo) {
+    
+    new PNotify({
+        styling: 'bootstrap3',
+        title: titulo,
+        text: texto,
+        type: tipo
+    });
+}

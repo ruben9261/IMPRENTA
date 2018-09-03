@@ -52,7 +52,7 @@ class EmpleadosModel extends CI_Model {
         $this->db->join('Rol r', 'u.IdRol = r.IdRol');
         $this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
 
-        //$this->db->where('u.IdUsuario',$Usuario->IdUsuario);
+        $this->db->where('u.IdUsuario',$Usuario->IdUsuario);
 
 		$string = $this->db->get_compiled_select();
         $query  = $this->db->query($string);
