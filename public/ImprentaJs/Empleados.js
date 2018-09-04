@@ -110,7 +110,21 @@ var ObtenerEmpleado = function(IdUsuario){
         data: {Usuario:Usuario},
         success: function(respuesta){
             var Empleado = JSON.parse(respuesta);
-            $("#ModalEmpleado").modal("show");
+
+            if(Empleado){
+                if(Empleado.length > 0){
+                    $("#IdUsuario").val(Empleado[0].IdUsuario);
+                    $("#IdPersona").val(Empleado[0].IdPersona);
+                    $("#Nombre").val(Empleado[0].Nombre);
+                    $("#IdRol").val(Empleado[0].IdRol);
+                    $("#Dni").val(Empleado[0].Dni);
+                    $("#Cargo").val(Empleado[0].Cargo);
+                    $("#Telefono").val(Empleado[0].Telefono);
+                    $("#Direccion").val(Empleado[0].Direccion);
+
+                    $("#ModalEmpleado").modal("show");
+                }
+            }
         },
         error: function(error){
             console.log(error.responseText);
@@ -124,7 +138,16 @@ var ObtenerEmpleado = function(IdUsuario){
 
 var GuardarEmpleado = function(){
 
-    var Empleado = {};
+    var Empleado = {
+        IdUsuario:$("#IdUsuario").val(),
+        IdPersona:$("#IdPersona").val(),
+        Nombre:$("#Nombre").val(),
+        IdRol:$("#IdRol").val(),
+        Dni:$("#Dni").val(),
+        Cargo:$("#Cargo").val(),
+        Telefono:$("#Telefono").val(),
+        Direccion:$("#Direccion").val()
+    };
 
     $.ajax({
         type:"post",
@@ -132,9 +155,13 @@ var GuardarEmpleado = function(){
         // dataType : "json",      
         // contentType: "application/json; charset=utf-8",
         data: {Empleado:Empleado},
-        success: function(respuesta){
-            var Empleado = JSON.parse(respuesta);
-            console.log(Empleado);
+        success: function(response){
+            var response = JSON.parse(response);
+            if(response.respuesta){
+                AlertNotify('', 'Exito', 'El registro se guardo correctamente', 'danger');
+            }else{
+                AlertNotify('', 'Error', 'Error en el servidor consulte con el administrador', 'danger');
+            }
         },
         error: function(error){
             AlertNotify('', 'Error', 'Error en el servidor consulte con el administrador', 'danger');
@@ -164,6 +191,19 @@ var EliminarEmpleado = function(){
     });
     return false;
 };
+
+var NuevoEmpleado = function(){
+    $("#IdUsuario").val("");
+    $("#IdPersona").val("");
+    $("#Nombre").val("");
+    $("#IdRol").val("5");
+    $("#Dni").val("");
+    $("#Cargo").val("");
+    $("#Telefono").val("");
+    $("#Direccion").val("");
+
+    $("#ModalEmpleado").modal("show");
+}
 
 function AlertNotify(versionB, titulo, texto, tipo) {
     

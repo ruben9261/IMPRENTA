@@ -26,7 +26,7 @@
       
                
        
-        <button type="button" onclick="Nuevo();" class="btn btn-primary btn-lg" >
+        <button type="button" onclick="javascript: NuevoEmpleado();" class="btn btn-primary btn-lg" >
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Nuevo
         </button>
 
@@ -90,6 +90,8 @@
 
           
            <form roles="form" accion="" name="frmClientes">
+             <input type="hidden" id="IdUsuario" value="0">
+             <input type="hidden" id="IdPersona" value="0">
            <div class="col-lg-12">
            
            <div class="form-group">

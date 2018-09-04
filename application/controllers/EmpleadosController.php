@@ -29,7 +29,7 @@ class EmpleadosController extends CI_Controller {
 		$FiltrosEmpleado = $_POST["FiltrosEmpleado"];
 		$FiltrosEmpleado = (object)$FiltrosEmpleado;
 
-		//$this->load->model('EmpleadosModel');
+		$this->load->model('EmpleadosModel');
 		$ListaEmpleados=$this->EmpleadosModel->ListarEmpleados($FiltrosEmpleado);
 
 		$jsonResponse = json_encode($ListaEmpleados);
@@ -42,8 +42,8 @@ class EmpleadosController extends CI_Controller {
 		$Usuario = $_POST["Usuario"];
 		$Usuario = (object)$Usuario;
 
-		$this->load->model('EmpleadosModel');
-		$Empleado=$this->Empleadosmodel->ObtenerEmpleado($Usuario);
+		$this->load->model('EmpleadosModel','EmpleadosModel');
+		$Empleado=$this->EmpleadosModel->ObtenerEmpleado($Usuario);
 
 		$jsonResponse = json_encode($Empleado);
 
@@ -51,16 +51,33 @@ class EmpleadosController extends CI_Controller {
 
 	}
 
-	public function GuardarEmpleado($Empleado){
+	public function GuardarEmpleado(){
+		$Empleado = $_POST["Empleado"];
+		$Empleado = (object)$Empleado;
 
+		$this->load->model('EmpleadosModel','EmpleadosModel');
+		if((int)$Empleado->IdUsuario == 0){
+			$respuesta=$this->EmpleadosModel->InsertarEmpleado($Empleado);
+		}else{
+			$respuesta=$this->EmpleadosModel->ActualizarEmpleado($Empleado);
+		}
+
+		$jsonResponse = json_encode($respuesta);
+
+		echo $jsonResponse;
 	}
 
-	public function EliminarEmpleado($IdEmpleado){
+	public function EliminarEmpleado(){
 
-	}
+		$Empleado = $_POST["Empleado"];
+		$Empleado = (object)$Empleado;
 
-	public function Prueba(){
-		$this->load->view('Clientes');
+		$this->load->model('EmpleadosModel','EmpleadosModel');
+		$respuesta=$this->EmpleadosModel->EliminarEmpleado($Empleado);
+
+		$jsonResponse = json_encode($respuesta);
+
+		echo $jsonResponse;
 	}
 
 }
