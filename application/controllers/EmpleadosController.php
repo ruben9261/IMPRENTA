@@ -69,11 +69,15 @@ class EmpleadosController extends CI_Controller {
 
 	public function EliminarEmpleado(){
 
-		$Empleado = $_POST["Empleado"];
-		$Empleado = (object)$Empleado;
+		$Usuario = $_POST["Usuario"];
+		$Usuario = (object)$Usuario;
 
 		$this->load->model('EmpleadosModel','EmpleadosModel');
-		$respuesta=$this->EmpleadosModel->EliminarEmpleado($Empleado);
+		$UsuarioRespuesta=$this->EmpleadosModel->ObtenerEmpleado($Usuario);
+		$Usuario = (object)$UsuarioRespuesta[0];
+
+		$this->load->model('EmpleadosModel','EmpleadosModel');
+		$respuesta=$this->EmpleadosModel->EliminarEmpleado($Usuario);
 
 		$jsonResponse = json_encode($respuesta);
 

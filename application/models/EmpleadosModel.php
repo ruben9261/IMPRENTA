@@ -83,7 +83,7 @@ class EmpleadosModel extends CI_Model {
 			'NombreUsuario' => $Empleado->NombreUsuario,
 			'PasswordUsuario' => $Empleado->PasswordUsuario
 		);
-
+		$this->db->insert('usuario', $USUARIO);
 		$IdUsuario = $this->db->insert_id();
 
 
@@ -157,18 +157,26 @@ class EmpleadosModel extends CI_Model {
 	public function EliminarEmpleado($Empleado){
 		$this->db->trans_start();
 		
-		$this->db->delete('personas', array('IdPersona' => $Empleado->IdPersona));
 		$this->db->delete('usuario', array('IdUsuario' => $Empleado->IdUsuario));
+		$this->db->delete('personas', array('IdPersona' => $Empleado->IdPersona));
 
 		$this->db->trans_complete();
+
+		$respuesta = false;
 		if ($this->db->trans_status() === FALSE) {
 			$this->db->trans_rollback();
-			return FALSE;
+			$respuesta =  FALSE;
 		} 
 		else {
 			$this->db->trans_commit();
-			return TRUE;
+			$respuesta =  TRUE;
 		}
+
+		$response = array(
+			'respuesta' => $respuesta
+		);
+
+		return $response;
 	}
 
 }

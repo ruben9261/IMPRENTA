@@ -47,7 +47,7 @@
               <th>Dirección</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="lista-empleados">
             
 
             
@@ -107,9 +107,19 @@
            </select>
            </div>
 
-            <div class="form-group">
+           <div class="form-group">
            <label>DNI</label>
            <input id="Dni" name="dni"  class="form-control" required>
+           </div>
+
+           <div class="form-group">
+           <label>NombreUsuario</label>
+           <input id="NombreUsuario" name="NombreUsuario"  class="form-control" required>
+           </div>
+
+            <div class="form-group">
+           <label>PasswordUsuario</label>
+           <input id="PasswordUsuario" name="PasswordUsuario"  class="form-control" required>
            </div>
 
            <div class="form-group">
@@ -144,8 +154,36 @@
       </div>
 
     </div>
+
+    <script id="lista-empleados-template" type="text/x-handlebars-template">
+      {{#each this.ListaEmpleados as |item|}}
+        <tr>
+                <td>{{item.IdUsuario}}</td>
+                <td>{{item.Nombre}}</td>
+                <td>{{item.Dni}}</td>
+                <td>{{item.Cargo}}</td>
+                <td>{{item.Telefono}}</td>
+                <td>{{item.Direccion}}</td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-danger">Seleccione</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a style="cursor: pointer;" onclick="javascript: EliminarEmpleado('{{item.IdUsuario}}');">Eliminar</a> </li>
+                      <li><a style="cursor: pointer;" onclick="javascript: ObtenerEmpleado('{{item.IdUsuario}}');">Actualizar</a></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+      {{/each}}
+    </script>
     <script type="text/javascript" src="/public/jquery/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="/public/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/public/pnotify/pnotify.custom.min.js"></script>
+    <script type="text/javascript" src="/public/HandleBars/handlebars-v4.0.11.js"></script>
     <script type="text/javascript" src="/public/ImprentaJs/Empleados.js"></script>
   </body>
   </html>
