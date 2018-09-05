@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Empleados</title>
   <link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/public/pnotify/pnotify.custom.min.css">
 </head>
 <body>
   <nav class="navbar navbar-inverse">
@@ -183,6 +184,8 @@
     <script type="text/javascript" src="/public/bootstrap/js/bootstrap.min.js"></script>
     <script src="/public/pnotify/pnotify.custom.min.js"></script>
     <script type="text/javascript" src="/public/HandleBars/handlebars-v4.0.11.js"></script>
+    <script type="text/javascript" src="/public/ImprentaJs/AlertNotifyConfiguration.js"></script>
+    <script type="text/javascript" src="/public/ImprentaJs/HandlebarsConfiguration.js"></script>
     <script type="text/javascript" src="/public/ImprentaJs/Empleados.js"></script>
   </body>
   </html>
