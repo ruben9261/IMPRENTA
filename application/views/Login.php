@@ -2,8 +2,8 @@
 <html>
 <head>
       <title>Login de usuario</title>
-      <link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.css">
-      <script src="/public/jquery/jquery-3.2.1.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="/public/bootstrap/css/bootstrap.css">      
+      <link rel="stylesheet" type="text/css" href="/public/pnotify/pnotify.custom.min.css">
 </head>
 <body style="background-color: gray">
       <br><br><br>
@@ -32,8 +32,10 @@
                   <div class="col-sm-4"></div>
             </div>
       </div>
-      <script src="/public/ImprentaJs/Login.js"></script>
+      <script src="/public/jquery/jquery-3.2.1.min.js"></script>
       <script src="/public/pnotify/pnotify.custom.min.js"></script>
+      <script src="/public/ImprentaJs/Login.js"></script>
+      
 
 </body>
 </html>
