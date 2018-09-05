@@ -47,7 +47,7 @@
               </ul>
           </li>
 
-          <li><a href="/EmpleadosController/Empleados"><span class="glyphicon glyphicon-user"></span>Vendedores</a>
+          <li><a href="/EmpleadosController/Empleados"><span class="glyphicon glyphicon-user"></span>Usuarios</a>
           </li>
 
           <li><a href="../datatable/index.php"><span class="glyphicon glyphicon-usd"></span>Cotizacion

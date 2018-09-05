@@ -46,6 +46,8 @@ var ObtenerEmpleado = function(IdUsuario){
                     $("#Cargo").val(Empleado[0].Cargo);
                     $("#Telefono").val(Empleado[0].Telefono);
                     $("#Direccion").val(Empleado[0].Direccion);
+                    $("#NombreUsuario").val(Empleado[0].NombreUsuario);
+                    $("#PasswordUsuario").val(Empleado[0].PasswordUsuario);
 
                     $("#ModalEmpleado").modal("show");
                 }
@@ -134,6 +136,10 @@ var EliminarEmpleado = function(IdUsuario){
     return false;
 };
 
+var CloseModal = function(){
+    $("#ModalEmpleado").modal("hide");
+}
+
 var NuevoEmpleado = function(){
     $("#IdUsuario").val("");
     $("#IdPersona").val("");
@@ -143,8 +149,8 @@ var NuevoEmpleado = function(){
     $("#Cargo").val("");
     $("#Telefono").val("");
     $("#Direccion").val("");
-    $("#NombreUsuario").val(),
-    $("#PasswordUsuario").val()
+    $("#NombreUsuario").val(""),
+    $("#PasswordUsuario").val("")
 
     $("#ModalEmpleado").modal("show");
 }

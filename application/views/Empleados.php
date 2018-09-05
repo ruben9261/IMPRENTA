@@ -11,7 +11,7 @@
   <nav class="navbar navbar-inverse">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Control de Vendedores</a>
+        <a class="navbar-brand" href="#">Control de Usuarios</a>
       </div>
     </nav>
     <div class="container">
@@ -22,9 +22,9 @@
             </a>
           </td></h1>
 
-        <p class="lead">Aplicación Control de Ventas</p>
+        <!-- <p class="lead">Aplicación Control de Ventas</p> -->
       
-               
+        <br/><br/>
        
         <button type="button" onclick="javascript: NuevoEmpleado();" class="btn btn-primary btn-lg" >
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Nuevo
@@ -84,7 +84,7 @@
           <div class="modal-dialog">
           <div class="modal-content">
           <div class="modal-header">
-              <button type="button" class="close" data-dismiss="ModalEmpleado" aria-hidden="true">&times;</button>
+          <button type="button" class="btn btn-danger btn-circle" onclick="javascript: CloseModal();"><i class="fa fa-times"></i>x</button>
               <h4 class="modal-title">Nuevo Usuario</h4>
           </div>
 
@@ -102,8 +102,9 @@
            <div class="form-group">
            <label>Rol</label>
            <select name="" class="selectpicker" id="IdRol">
-             <option value="5">Admin</option>
-             <option value="6">Empleado</option>
+           <?php foreach($ListaRoles as $row){ ?>
+            <option value="<?php print($row->IdRol); ?>"><?php print($row->NombreRol); ?></option>
+           <?php } ?>
            </select>
            </div>
 
@@ -137,17 +138,15 @@
            <input id="Direccion" name="dni"  class="form-control" required>
            </div>
 
-           <br />
-
-            <button type="button" onclick="javascript: GuardarEmpleado();" class="btn btn-info btn-lg">
-            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Guardar
-            </button>
+           <br/>
 
              </div>
 
            </form>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger btn-circle" data-dismiss="ModalEmpleado"><i class="fa fa-times"></i>x</button>
+              <button type="button" onclick="javascript: GuardarEmpleado();" class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Guardar
+              </button>
             </div>
           </div>
         </div>

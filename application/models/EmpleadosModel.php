@@ -13,7 +13,8 @@ class EmpleadosModel extends CI_Model {
 		$this->db->select('u.IdUsuario');
 		$this->db->select('u.IdPersona');
         $this->db->select('u.IdRol');
-        $this->db->select('u.NombreUsuario');
+		$this->db->select('u.NombreUsuario');
+		$this->db->select('u.PasswordUsuario');
         $this->db->select('r.NombreRol');
         $this->db->select('p.Nombre');
 		$this->db->select('p.Dni');
@@ -26,6 +27,18 @@ class EmpleadosModel extends CI_Model {
         $this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
 
         $this->db->where('u.IdUsuario',$Usuario->IdUsuario);
+
+		$string = $this->db->get_compiled_select();
+        $query  = $this->db->query($string);
+        $result = $query->result();
+
+		return $result;
+	}
+
+	public function ListarRoles(){
+        $this->db->select('r.IdRol');
+        $this->db->select('r.NombreRol');
+        $this->db->from('Rol r');
 
 		$string = $this->db->get_compiled_select();
         $query  = $this->db->query($string);
@@ -124,7 +137,7 @@ class EmpleadosModel extends CI_Model {
 		$this->db->update('personas', $PERSONAS);
 
 		$USUARIO = array(
-			'IdPersona' => $IdPersona,
+			'IdPersona' => $Empleado->IdPersona,
 			'IdRol' => $Empleado->IdRol,
 			'NombreUsuario' => $Empleado->NombreUsuario,
 			'PasswordUsuario' => $Empleado->PasswordUsuario
@@ -147,8 +160,8 @@ class EmpleadosModel extends CI_Model {
 		
 		$response = array(
 			'respuesta' => $respuesta,
-			'IdUsuario'=> $IdUsuario,
-			'IdPersona'=> $IdPersona
+			'IdUsuario'=> $Empleado->IdUsuario,
+			'IdPersona'=> $Empleado->IdPersona
 		);
 
 		return $response;

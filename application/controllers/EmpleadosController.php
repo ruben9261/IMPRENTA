@@ -17,8 +17,10 @@ class EmpleadosController extends CI_Controller {
 
 		$this->load->model('EmpleadosModel');
 		$ListaEmpleados=$this->EmpleadosModel->ListarEmpleados($FiltrosEmpleado);
+		$ListaRoles=$this->EmpleadosModel->ListarRoles();
 
 		$data["ListaEmpleados"] = $ListaEmpleados;
+		$data["ListaRoles"] = $ListaRoles;
 
 		$this->load->view('Empleados',$data);
 	}
