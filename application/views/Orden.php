@@ -40,7 +40,7 @@
                       </li> -->
 
                       <caption>
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalNuevo">Nueva Orden
+                        <button class="btn btn-primary" onclick="javascript: NuevaOrden();">Nueva Orden
                         <span class="glyphicon glyphicon-plus"></span>
                         </button>
                       </caption>
@@ -79,7 +79,7 @@
                           <th style="text-align: center;">Etapa 2</th>
                           <th style="text-align: center;">Etapa 3</th>
                           <th style="text-align: center;">Etapa 4</th>
-                      
+                          <th style="text-align: center;">Acciones</th>
                         </tr>
                       </thead>
                     <tbody id="lista-orden">
@@ -89,29 +89,37 @@
                     <td style="text-align: center;"><?php print($row->DescripcionOrden); ?></td>
                     <td style="text-align: center;"><?php print($row->razonsocial); ?></td>
                     <td style="text-align: center;"><?php print($row->FechaRegistro); ?></td>
-                    <td style="text-align: center;"><?php print($row->Nombre); ?></td>
+                    <td style="text-align: center;"><?php print($row->nombre); ?></td>
                     <td style="text-align: center;">
                         <a class="btn btn-success btn-sm" href='../datatable/index.php?idcotizacion=';>
-                        <span class="fa fa-plus"></span></a>
+                        <span class="fa fa-plus"></span>Pendiente</a>
                     </td>
                     <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
-                      <span class="fa fa-plus"></span>
+                      <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                      <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
-                      <span class="fa fa-plus"></span>
+                      <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
-                      <span class="fa fa-plus"></span>
+                      <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
                         <a class="btn btn-success btn-sm">
-                        <span class="fa fa-plus"></span>
+                        <span class="fa fa-plus">Pendiente</span>
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <a class="btn btn-dark btn-sm" onclick="javascript: ActualizarOrden(<?php print($row->IdOrden); ?>);">
+                        <span class="fa fa-pencil"></span>
+                        </a>
+                        <a class="btn btn-danger btn-sm" onclick="javascript: EliminarOrden(<?php print($row->IdOrden); ?>);">
+                        <span class="fa fa-trash"></span>
                         </a>
                     </td>
                     </tr>                                    
@@ -129,7 +137,7 @@
     <!-- MODAL PARA REGISTROS NUEVOS -->
 
 <!-- Modal -->
-<div class="modal fade" id="modalNuevo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="OrdenModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -139,10 +147,11 @@
         </button>
       </div>
       <div class="modal-body">
-<form id="frmnuevoOrden" method="POST">
+<div id="frmnuevoOrden" method="POST">
+        <input type="hidden" id="IdOrden" value="0"></input>
         <div class="form-group">
             <label for="exampleInputEmail1">Descripcion</label>
-            <input type="email" class="form-control" id="DescripcionOrden" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" id="DescripcionOrden" aria-describedby="emailHelp">
         </div>
 
         <div class="form-group">
@@ -153,6 +162,7 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Usuario</label>
             <select name="" class="form-control input-sm" id="IdUsuario">
+                <option value="0">--Seleccione--</option>
                 <?php foreach($ListaUsuarios as $row){ ?>
                     <option value="<?php print($row->IdUsuario); ?>"><?php print($row->Nombre); ?></option>
                 <?php } ?>
@@ -162,12 +172,13 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Cliente</label>
             <select name="" class="form-control input-sm" id="IdCliente">
+                <option value="0">--Seleccione--</option>
                 <?php foreach($ListaClientes as $row){ ?>
                     <option value="<?php print($row->IdCliente); ?>"><?php print($row->razonsocial); ?></option>
                 <?php } ?>
             </select>
         </div>
-</form>
+</div>
 
       </div>
       <div class="modal-footer">
@@ -180,7 +191,7 @@
 
 <!-- HandleBars -->
     <script id="lista-orden-template" type="text/x-handlebars-template">
-      {{#each this.ListaOrden as |item|}}
+      {{#each this.ListaOrdenes as |item|}}
         <tr>
                 <td>{{item.IdOrden}}</td>
                 <td>{{item.DescripcionOrden}}</td>
@@ -211,6 +222,24 @@
                         <span class="fa fa-plus"></span>
                         </a>
                     </td>
+                    <td style="text-align: center;">
+                        <a class="btn btn-success btn-sm">
+                        <span class="fa fa-pencil"></span>
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <a class="btn btn-success btn-sm">
+                        <span class="fa fa-plus"></span>
+                        </a>
+                    </td>
+                    <td style="text-align: center;">
+                        <a class="btn btn-dark btn-sm" onclick="javascript: ActualizarOrden({{item.IdOrden}});">
+                        <span class="fa fa-pencil"></span>
+                        </a>
+                        <a class="btn btn-danger btn-sm" onclick="javascript: EliminarOrden({{item.IdOrden}});">
+                        <span class="fa fa-trash"></span>
+                        </a>
+                    </td>
         </tr>
       {{/each}}
     </script>
@@ -230,7 +259,7 @@
     <script src="/public/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="/public/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="/public/ImprentaJs/Orden/Custom.js"></script>
+    
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
     <!-- <script src="librerias/alertify/alertify.js"></script> -->
 
@@ -238,9 +267,13 @@
     <script type="text/javascript" src="/public/HandleBars/handlebars-v4.0.11.js"></script>
     <script type="text/javascript" src="/public/ImprentaJs/HandlebarsConfiguration.js"></script>
 
+    <script type="text/javascript" src="/public/ImprentaJs/AlertNotifyConfiguration.js"></script>
+    <script src="/public/ImprentaJs/Orden/Custom.js"></script>
+    <script src="/public/ImprentaJs/Orden/Orden.js"></script>
+
     <script type="text/javascript">
     $(function() {
-    $("#datepicker").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+    $("#FechaRegistro").datepicker({ dateFormat: 'dd/mm/yy' }).val();
 
     $("#fecha").datepicker({ dateFormat: 'dd/mm/yy' }).val();
     $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' }).val();
@@ -250,25 +283,25 @@
 
 
       <script type="text/javascript">      
-      $('#btnAgregarnuevo').click(function(){
-        var datos=$('#frmnuevoOrden').serialize();
-      debugger
-      $.ajax({
-      type:"POST",
-      data:datos,
-      url:"php/registrar.php",
-      success:function(r){
-      if(r==""){
-        $('#btnAgregarnuevo')[0].reset();
-      // $('#tablaDatatable').load('tabla.php');
-      //  $("#btncerrar").click();
-        alertify.success("agregado con exito :D");
-      }else{
-        alertify.error("Fallo al agregar :(");
-      }
-      }
-      });
-      });
+      // $('#btnAgregarnuevo').click(function(){
+      //   var datos=$('#frmnuevoOrden').serialize();
+      // debugger
+      // $.ajax({
+      // type:"POST",
+      // data:datos,
+      // url:"php/registrar.php",
+      // success:function(r){
+      // if(r==""){
+      //   $('#btnAgregarnuevo')[0].reset();
+      // // $('#tablaDatatable').load('tabla.php');
+      // //  $("#btncerrar").click();
+      //   alertify.success("agregado con exito :D");
+      // }else{
+      //   alertify.error("Fallo al agregar :(");
+      // }
+      // }
+      // });
+      // });
       
       </script>
 

@@ -61,20 +61,33 @@ class OrdenController extends CI_Controller {
 		echo $jsonResponse;
 	}
 
-    public function GuardarEmpleado(){
+    public function GuardarOrden(){
 		$Orden = $_POST["Orden"];
 		$Orden = (object)$Orden;
 
 		$this->load->model('OrdenModel','OrdenModel');
-		if((int)$Empleado->IdUsuario == 0){
-			$respuesta=$this->UsuarioModel->InsertarEmpleado($Empleado);
+		if((int)$Orden->IdOrden == 0){
+			$respuesta=$this->OrdenModel->InsertarOrden($Orden);
 		}else{
-			$respuesta=$this->UsuarioModel->ActualizarEmpleado($Empleado);
+			$respuesta=$this->OrdenModel->ActualizarOrden($Orden);
 		}
 
 		$jsonResponse = json_encode($respuesta);
 
 		echo $jsonResponse;
+	}
+
+	public function ObtenerOrden(){
+		$Orden = $_POST["Orden"];
+		$Orden = (object)$Orden;
+
+		$this->load->model('OrdenModel','OrdenModel');
+		$Orden=$this->OrdenModel->ObtenerOrden($Orden);
+
+		$jsonResponse = json_encode($Orden);
+
+		echo $jsonResponse;
+
 	}
 	
 }
