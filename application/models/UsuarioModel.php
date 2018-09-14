@@ -1,7 +1,7 @@
 <?php if( ! defined ('BASEPATH')) exit('error al intentar acceder');
 
 
-class EmpleadosModel extends CI_Model {
+class UsuarioModel extends CI_Model {
 		
 	public function _construct()
 	{
@@ -9,7 +9,7 @@ class EmpleadosModel extends CI_Model {
 		$this->load->database('default');
 	}
 
-	public function ObtenerEmpleado($Usuario){
+	public function ObtenerUsuario($Usuario){
 		$this->db->select('u.IdUsuario');
 		$this->db->select('u.IdPersona');
         $this->db->select('u.IdRol');
@@ -47,7 +47,7 @@ class EmpleadosModel extends CI_Model {
 		return $result;
 	}
 	
-	public function ListarEmpleados($FiltrosEmpleado){
+	public function ListarUsuarios($FiltrosEmpleado){
 
 		$this->db->select('u.IdUsuario');
 		$this->db->select('u.IdPersona');
@@ -62,8 +62,9 @@ class EmpleadosModel extends CI_Model {
 
 		$this->db->from('Usuario u');
         $this->db->join('Rol r', 'u.IdRol = r.IdRol');
-        $this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
-
+		$this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
+		
+		if($FiltrosEmpleado!=null)
         $this->db->where('p.estado',$FiltrosEmpleado->Estado);
 
 		$string = $this->db->get_compiled_select();

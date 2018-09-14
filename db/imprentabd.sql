@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: imprentabd
+-- Host: 127.0.0.1    Database: imprentabd
 -- ------------------------------------------------------
--- Server version	5.7.19-log
+-- Server version	8.0.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -40,6 +40,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (1,'cliente1','2132143','servicios','av. arequipa','987789878','tipico');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,7 +56,7 @@ CREATE TABLE `cotizacion` (
   `IdOrden` int(11) NOT NULL,
   PRIMARY KEY (`IdCotizacion`),
   KEY `fk_Cotizacion_Orden1_idx` (`IdOrden`),
-  CONSTRAINT `fk_Cotizacion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`IdOrden`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Cotizacion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`idorden`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -83,8 +84,8 @@ CREATE TABLE `detallecotizacion` (
   PRIMARY KEY (`IdDetalleCotizacion`),
   KEY `fk_DetalleCotizacion_Cotizacion1_idx` (`IdCotizacion`),
   KEY `fk_DetalleCotizacion_Producto1_idx` (`IdProducto`),
-  CONSTRAINT `fk_DetalleCotizacion_Cotizacion1` FOREIGN KEY (`IdCotizacion`) REFERENCES `cotizacion` (`IdCotizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_DetalleCotizacion_Producto1` FOREIGN KEY (`IdProducto`) REFERENCES `producto` (`IdProductos`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_DetalleCotizacion_Cotizacion1` FOREIGN KEY (`IdCotizacion`) REFERENCES `cotizacion` (`idcotizacion`),
+  CONSTRAINT `fk_DetalleCotizacion_Producto1` FOREIGN KEY (`IdProducto`) REFERENCES `producto` (`idproductos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -153,13 +154,15 @@ CREATE TABLE `orden` (
   `IdCliente` int(11) NOT NULL,
   `IdEmpleado` int(11) NOT NULL,
   `Idempresa` int(11) NOT NULL,
+  `FechaRegistro` datetime DEFAULT NULL,
+  `DescripcionOrden` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`IdOrden`),
   KEY `fk_Orden_Empresa_idx` (`IdCliente`),
   KEY `fk_Orden_Empleado1_idx` (`IdEmpleado`),
   KEY `fk_Orden_Empresa1_idx` (`Idempresa`),
-  CONSTRAINT `fk_Orden_Empleado1` FOREIGN KEY (`IdEmpleado`) REFERENCES `personas` (`IdPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Orden_Empresa` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`IdCliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Orden_Empresa1` FOREIGN KEY (`Idempresa`) REFERENCES `empresa` (`Idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Orden_Empleado1` FOREIGN KEY (`IdEmpleado`) REFERENCES `personas` (`idpersona`),
+  CONSTRAINT `fk_Orden_Empresa` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`idcliente`),
+  CONSTRAINT `fk_Orden_Empresa1` FOREIGN KEY (`Idempresa`) REFERENCES `empresa` (`idempresa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -181,14 +184,14 @@ DROP TABLE IF EXISTS `personas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `personas` (
   `IdPersona` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `dni` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `cargo` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `telefono` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `direccion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `estado` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `dni` varchar(20) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `cargo` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `telefono` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `direccion` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `estado` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`IdPersona`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,7 +200,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (3,'Will','48098909','empleado','987789837','av. arequipa','activo');
+INSERT INTO `personas` VALUES (3,'Will','48098909','empleado','987789837','av. arequipa','activo'),(4,'Pedro','33333333','Empleado','333333333333','3333333333333','activo'),(5,'Pedro','33333333','Empleado','333333333333','3333333333333','activo'),(6,'33333','333333','333333','333333333','333333333333','activo'),(7,'33333333','333333333','333333333','33333333','3333333','activo'),(8,'33333333','333333333','333333333','33333333','3333333','activo'),(9,'33333333','333333333','333333333','33333333','3333333','activo'),(16,'33333333','33333333','33333333','33333333','33333333','activo'),(19,'555555','555555','555555','555555','555555','activo'),(20,'555555','555555','555555','555555','555555','activo');
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +239,7 @@ CREATE TABLE `requerimiento` (
   `Descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`IdRequerimiento`),
   KEY `fk_Requerimiento_Orden1_idx` (`IdOrden`),
-  CONSTRAINT `fk_Requerimiento_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`IdOrden`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Requerimiento_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`idorden`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -266,9 +269,9 @@ CREATE TABLE `reunion` (
   KEY `fk_Reunion_Orden1_idx` (`IdOrden`),
   KEY `fk_Reunion_Reunion1_idx` (`IdReunionPadre`),
   KEY `fk_Reunion_EstadoReunion1_idx` (`IdEstadoReunion`),
-  CONSTRAINT `fk_Reunion_EstadoReunion1` FOREIGN KEY (`IdEstadoReunion`) REFERENCES `estadoreunion` (`IdEstadoReunion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Reunion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`IdOrden`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Reunion_Reunion1` FOREIGN KEY (`IdReunionPadre`) REFERENCES `reunion` (`IdReunion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Reunion_EstadoReunion1` FOREIGN KEY (`IdEstadoReunion`) REFERENCES `estadoreunion` (`idestadoreunion`),
+  CONSTRAINT `fk_Reunion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`idorden`),
+  CONSTRAINT `fk_Reunion_Reunion1` FOREIGN KEY (`IdReunionPadre`) REFERENCES `reunion` (`idreunion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -321,9 +324,9 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`IdUsuario`),
   KEY `fk_Usuario_Empleado1_idx` (`IdPersona`),
   KEY `fk_Usuario_Rol1_idx` (`IdRol`),
-  CONSTRAINT `fk_Usuario_Empleado1` FOREIGN KEY (`IdPersona`) REFERENCES `personas` (`IdPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`IdRol`) REFERENCES `rol` (`IdRol`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_Usuario_Empleado1` FOREIGN KEY (`IdPersona`) REFERENCES `personas` (`idpersona`),
+  CONSTRAINT `fk_Usuario_Rol1` FOREIGN KEY (`IdRol`) REFERENCES `rol` (`idrol`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,13 +335,9 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,3,6,'admin','1234');
+INSERT INTO `usuario` VALUES (5,3,6,'admin','1234'),(12,16,5,'33333333','33333333'),(15,19,5,'555555','555555'),(16,20,5,'555555','555555');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Dumping routines for database 'imprentabd'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -349,4 +348,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-31  0:31:07
+-- Dump completed on 2018-09-13 21:01:50

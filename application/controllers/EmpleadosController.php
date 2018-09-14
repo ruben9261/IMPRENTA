@@ -8,16 +8,16 @@ class EmpleadosController extends CI_Controller {
 	{	parent::_construct();
 		//$this->load->helper('url');
 		//$this->load->model('LoginModel');
-		$this->load->model('EmpleadosModel');
+		$this->load->model('UsuarioModel');
 	}
 
 	public function Empleados(){
 		$FiltrosEmpleado = new stdClass();
 		$FiltrosEmpleado->Estado = "activo";
 
-		$this->load->model('EmpleadosModel');
-		$ListaEmpleados=$this->EmpleadosModel->ListarEmpleados($FiltrosEmpleado);
-		$ListaRoles=$this->EmpleadosModel->ListarRoles();
+		$this->load->model('UsuarioModel');
+		$ListaEmpleados=$this->UsuarioModel->ListarUsuarios($FiltrosEmpleado);
+		$ListaRoles=$this->UsuarioModel->ListarRoles();
 
 		$data["ListaEmpleados"] = $ListaEmpleados;
 		$data["ListaRoles"] = $ListaRoles;
@@ -31,8 +31,8 @@ class EmpleadosController extends CI_Controller {
 		$FiltrosEmpleado = $_POST["FiltrosEmpleado"];
 		$FiltrosEmpleado = (object)$FiltrosEmpleado;
 
-		$this->load->model('EmpleadosModel');
-		$ListaEmpleados=$this->EmpleadosModel->ListarEmpleados($FiltrosEmpleado);
+		$this->load->model('UsuarioModel');
+		$ListaEmpleados=$this->UsuarioModel->ListarUsuarios($FiltrosEmpleado);
 
 		$jsonResponse = json_encode($ListaEmpleados);
 		
@@ -44,8 +44,8 @@ class EmpleadosController extends CI_Controller {
 		$Usuario = $_POST["Usuario"];
 		$Usuario = (object)$Usuario;
 
-		$this->load->model('EmpleadosModel','EmpleadosModel');
-		$Empleado=$this->EmpleadosModel->ObtenerEmpleado($Usuario);
+		$this->load->model('UsuarioModel','UsuarioModel');
+		$Empleado=$this->UsuarioModel->ObtenerUsuario($Usuario);
 
 		$jsonResponse = json_encode($Empleado);
 
@@ -57,11 +57,11 @@ class EmpleadosController extends CI_Controller {
 		$Empleado = $_POST["Empleado"];
 		$Empleado = (object)$Empleado;
 
-		$this->load->model('EmpleadosModel','EmpleadosModel');
+		$this->load->model('UsuarioModel','UsuarioModel');
 		if((int)$Empleado->IdUsuario == 0){
-			$respuesta=$this->EmpleadosModel->InsertarEmpleado($Empleado);
+			$respuesta=$this->UsuarioModel->InsertarEmpleado($Empleado);
 		}else{
-			$respuesta=$this->EmpleadosModel->ActualizarEmpleado($Empleado);
+			$respuesta=$this->UsuarioModel->ActualizarEmpleado($Empleado);
 		}
 
 		$jsonResponse = json_encode($respuesta);
@@ -74,12 +74,12 @@ class EmpleadosController extends CI_Controller {
 		$Usuario = $_POST["Usuario"];
 		$Usuario = (object)$Usuario;
 
-		$this->load->model('EmpleadosModel','EmpleadosModel');
-		$UsuarioRespuesta=$this->EmpleadosModel->ObtenerEmpleado($Usuario);
+		$this->load->model('UsuarioModel','UsuarioModel');
+		$UsuarioRespuesta=$this->UsuarioModel->ObtenerUsuario($Usuario);
 		$Usuario = (object)$UsuarioRespuesta[0];
 
-		$this->load->model('EmpleadosModel','EmpleadosModel');
-		$respuesta=$this->EmpleadosModel->EliminarEmpleado($Usuario);
+		$this->load->model('UsuarioModel','UsuarioModel');
+		$respuesta=$this->UsuarioModel->EliminarEmpleado($Usuario);
 
 		$jsonResponse = json_encode($respuesta);
 
