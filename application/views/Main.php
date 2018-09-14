@@ -50,7 +50,7 @@
           <li><a href="/EmpleadosController/Empleados"><span class="glyphicon glyphicon-user"></span>Usuarios</a>
           </li>
 
-          <li><a href="../datatable/index.php"><span class="glyphicon glyphicon-usd"></span>Cotizacion
+          <li><a href="/OrdenController/Index"><span class="glyphicon glyphicon-usd"></span>Ordenes
           </a>
           </li> 
 

@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '127.0.0.1:3306',
-	'username' => 'root',
-	'password' => '1234',
-	'database' => 'imprentabd',
+	'hostname' => 'mysql5005.site4now.net',
+	'username' => 'a14248_imprent',
+	'password' => '0nlyBusiness',
+	'database' => 'db_a14248_imprent',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
