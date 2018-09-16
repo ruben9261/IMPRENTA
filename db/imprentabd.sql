@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: imprentabd
+-- Host: 127.0.0.1    Database: imprentadb2
 -- ------------------------------------------------------
 -- Server version	8.0.11
 
@@ -54,10 +54,19 @@ DROP TABLE IF EXISTS `cotizacion`;
 CREATE TABLE `cotizacion` (
   `IdCotizacion` int(11) NOT NULL AUTO_INCREMENT,
   `IdOrden` int(11) NOT NULL,
+  `Codcotizacion` varchar(50) DEFAULT NULL,
+  `Descripcion` varchar(50) DEFAULT NULL,
+  `FechaCotizacion` datetime DEFAULT NULL,
+  `ImporteTotal` decimal(10,4) DEFAULT NULL,
+  `Igv` decimal(10,4) DEFAULT NULL,
+  `IdEstado` int(11) DEFAULT NULL,
+  `Importe` decimal(10,4) DEFAULT NULL,
   PRIMARY KEY (`IdCotizacion`),
   KEY `fk_Cotizacion_Orden1_idx` (`IdOrden`),
+  KEY `fk_Cotizacion_Estado_idx` (`IdEstado`),
+  CONSTRAINT `fk_Cotizacion_Estado` FOREIGN KEY (`IdEstado`) REFERENCES `estado` (`idestado`),
   CONSTRAINT `fk_Cotizacion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`idorden`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,6 +75,7 @@ CREATE TABLE `cotizacion` (
 
 LOCK TABLES `cotizacion` WRITE;
 /*!40000 ALTER TABLE `cotizacion` DISABLE KEYS */;
+INSERT INTO `cotizacion` VALUES (12,4,'prueba codcotizacion','12321','0000-00-00 00:00:00',21.2400,3.2400,3,18.0000),(13,5,'213213','21312321','0000-00-00 00:00:00',16.5200,2.5200,2,14.0000),(14,3,'12321321','123213','0000-00-00 00:00:00',40.1200,6.1200,2,34.0000),(15,16,'sadadsa','sadsadasd','0000-00-00 00:00:00',16.5200,2.5200,3,14.0000);
 /*!40000 ALTER TABLE `cotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,12 +91,15 @@ CREATE TABLE `detallecotizacion` (
   `IdCotizacion` int(11) NOT NULL,
   `IdProducto` int(11) DEFAULT NULL,
   `DescProducto` varchar(45) DEFAULT NULL,
+  `cantidad` decimal(10,4) DEFAULT NULL,
+  `preciounitario` decimal(10,4) DEFAULT NULL,
+  `total` decimal(10,4) DEFAULT NULL,
   PRIMARY KEY (`IdDetalleCotizacion`),
   KEY `fk_DetalleCotizacion_Cotizacion1_idx` (`IdCotizacion`),
   KEY `fk_DetalleCotizacion_Producto1_idx` (`IdProducto`),
   CONSTRAINT `fk_DetalleCotizacion_Cotizacion1` FOREIGN KEY (`IdCotizacion`) REFERENCES `cotizacion` (`idcotizacion`),
   CONSTRAINT `fk_DetalleCotizacion_Producto1` FOREIGN KEY (`IdProducto`) REFERENCES `producto` (`idproductos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +108,7 @@ CREATE TABLE `detallecotizacion` (
 
 LOCK TABLES `detallecotizacion` WRITE;
 /*!40000 ALTER TABLE `detallecotizacion` DISABLE KEYS */;
+INSERT INTO `detallecotizacion` VALUES (22,13,NULL,'21321',2.0000,3.0000,6.0000),(23,13,NULL,'12321',4.0000,2.0000,8.0000),(24,12,NULL,'213',2.0000,3.0000,6.0000),(25,12,NULL,'23213',3.0000,4.0000,12.0000),(31,15,NULL,'21321',3.0000,2.0000,6.0000),(32,15,NULL,'sadsadsa',4.0000,2.0000,8.0000),(37,14,NULL,'212321',2.0000,3.0000,6.0000),(38,14,NULL,'123213',4.0000,2.0000,8.0000),(39,14,NULL,'dsfdsfsf',4.0000,5.0000,20.0000);
 /*!40000 ALTER TABLE `detallecotizacion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,25 +135,27 @@ LOCK TABLES `empresa` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `estadoreunion`
+-- Table structure for table `estado`
 --
 
-DROP TABLE IF EXISTS `estadoreunion`;
+DROP TABLE IF EXISTS `estado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `estadoreunion` (
-  `IdEstadoReunion` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`IdEstadoReunion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `estado` (
+  `IdEstado` int(11) NOT NULL AUTO_INCREMENT,
+  `EstadoDescripcion` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`IdEstado`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `estadoreunion`
+-- Dumping data for table `estado`
 --
 
-LOCK TABLES `estadoreunion` WRITE;
-/*!40000 ALTER TABLE `estadoreunion` DISABLE KEYS */;
-/*!40000 ALTER TABLE `estadoreunion` ENABLE KEYS */;
+LOCK TABLES `estado` WRITE;
+/*!40000 ALTER TABLE `estado` DISABLE KEYS */;
+INSERT INTO `estado` VALUES (1,'Pendiente'),(2,'Concretado'),(3,'Cancelado');
+/*!40000 ALTER TABLE `estado` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -159,11 +175,9 @@ CREATE TABLE `orden` (
   PRIMARY KEY (`IdOrden`),
   KEY `fk_Orden_Empresa_idx` (`IdCliente`),
   KEY `fk_Orden_Empleado1_idx` (`IdEmpleado`),
-  KEY `fk_Orden_Empresa1_idx` (`Idempresa`),
-  CONSTRAINT `fk_Orden_Empleado1` FOREIGN KEY (`IdEmpleado`) REFERENCES `personas` (`idpersona`),
-  CONSTRAINT `fk_Orden_Empresa` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`idcliente`),
-  CONSTRAINT `fk_Orden_Empresa1` FOREIGN KEY (`Idempresa`) REFERENCES `empresa` (`idempresa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_Orden_Empleado1` FOREIGN KEY (`IdEmpleado`) REFERENCES `usuario` (`idusuario`),
+  CONSTRAINT `fk_Orden_Empresa` FOREIGN KEY (`IdCliente`) REFERENCES `cliente` (`idcliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +186,7 @@ CREATE TABLE `orden` (
 
 LOCK TABLES `orden` WRITE;
 /*!40000 ALTER TABLE `orden` DISABLE KEYS */;
+INSERT INTO `orden` VALUES (3,1,15,0,'1970-01-01 00:00:00','Primera Orden Modificada'),(4,1,15,0,'1970-01-01 00:00:00','Segunda Orden'),(5,1,15,0,'1970-01-01 00:00:00','Tercera Orden'),(12,1,12,0,'1970-01-01 00:00:00','Quinta Orden'),(13,1,12,0,'1970-01-01 00:00:00','Quinta Orden'),(14,1,12,0,'1970-01-01 00:00:00','Orden de Prueba 2'),(15,1,12,0,'2018-05-09 00:00:00','Orden Javichin'),(16,1,12,0,'2018-12-09 00:00:00','Orden Javichin Dos');
 /*!40000 ALTER TABLE `orden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -264,12 +279,12 @@ CREATE TABLE `reunion` (
   `IdOrden` int(11) NOT NULL,
   `IdReunionPadre` int(11) NOT NULL,
   `Descripcion` varchar(45) DEFAULT NULL,
-  `IdEstadoReunion` int(11) NOT NULL,
+  `IdEstado` int(11) NOT NULL,
   PRIMARY KEY (`IdReunion`),
   KEY `fk_Reunion_Orden1_idx` (`IdOrden`),
   KEY `fk_Reunion_Reunion1_idx` (`IdReunionPadre`),
-  KEY `fk_Reunion_EstadoReunion1_idx` (`IdEstadoReunion`),
-  CONSTRAINT `fk_Reunion_EstadoReunion1` FOREIGN KEY (`IdEstadoReunion`) REFERENCES `estadoreunion` (`idestadoreunion`),
+  KEY `fk_Reunion_Estado1_idx` (`IdEstado`),
+  CONSTRAINT `fk_Reunion_Estado1` FOREIGN KEY (`IdEstado`) REFERENCES `estado` (`idestado`),
   CONSTRAINT `fk_Reunion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`idorden`),
   CONSTRAINT `fk_Reunion_Reunion1` FOREIGN KEY (`IdReunionPadre`) REFERENCES `reunion` (`idreunion`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -348,4 +363,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-13 21:01:50
+-- Dump completed on 2018-09-16 18:44:54
