@@ -36,7 +36,7 @@
                       <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> -->
                       <caption>
-                        <a class="btn btn-dark" href="/OrdenController/Index">REGRESAR
+                        <a class="btn btn-dark" href="/OrdenController/Index">Regresar
                         <span class="glyphicon glyphicon-menu-left"></span>
                         </a>
                       </caption>                    
