@@ -70,7 +70,7 @@ var GuardarOrden = function(){
         data: {Orden:Orden},
         success: function(response){
             var response = JSON.parse(response);
-            $("#modalNuevo").modal("hide");
+            $("#OrdenModal").modal("hide");
             if(response.respuesta){
                 AlertNotify('', 'Exito', 'El registro se guardo correctamente', 'success');
                 var FiltrosOrden = {

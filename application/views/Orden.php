@@ -91,7 +91,7 @@
                     <td style="text-align: center;"><?php print($row->FechaRegistro); ?></td>
                     <td style="text-align: center;"><?php print($row->nombre); ?></td>
                     <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm" href='../datatable/index.php?idcotizacion=';>
+                        <a class="btn btn-success btn-sm" href='/CotizacionesController/Index?IdOrden=<?php print($row->IdOrden);?>';>
                         <span class="fa fa-plus"></span>Pendiente</a>
                     </td>
                     <td style="text-align: center;">
@@ -197,39 +197,29 @@
                 <td>{{item.DescripcionOrden}}</td>
                 <td>{{item.razonsocial}}</td>
                 <td>{{item.FechaRegistro}}</td>
-                <td>{{item.Nombre}}</td>
+                <td>{{item.nombre}}</td>
                 <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm" href='../datatable/index.php?idcotizacion=';>
-                        <span class="fa fa-plus"></span></a>
+                        <a class="btn btn-success btn-sm" href='/CotizacionesController/index?IdOrden={{item.IdOrden}}';>
+                        <span class="fa fa-plus">Pendiente</span></a>
                     </td>
                     <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
-                      <span class="fa fa-plus"></span>
+                      <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                      <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
-                      <span class="fa fa-plus"></span>
+                      <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
-                      <span class="fa fa-plus"></span>
+                      <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
                         <a class="btn btn-success btn-sm">
-                        <span class="fa fa-plus"></span>
-                        </a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm">
-                        <span class="fa fa-pencil"></span>
-                        </a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm">
-                        <span class="fa fa-plus"></span>
+                        <span class="fa fa-plus">Pendiente</span>
                         </a>
                     </td>
                     <td style="text-align: center;">

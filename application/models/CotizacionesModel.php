@@ -31,4 +31,164 @@ class CotizacionesModel extends CI_Model {
 
 		return $result;
 	}
+
+	public function InsertarCotizacion($Cotizacion){
+		$this->db->trans_start();
+
+		$COTIZACION = array(
+			'IdOrden' => $Cotizacion->IdOrden,
+			'CodCotizacion' => $Cotizacion->CodCotizacion,
+			'Descripcion' => $Cotizacion->Descripcion,
+			'FechaCotizacion' => $Cotizacion->FechaCotizacion,
+			'ImporteTotal' => $Cotizacion->ImporteTotal,
+			'Igv' => $Cotizacion->Igv,
+			'IdEstado' => $Cotizacion->IdEstado
+		);
+
+		$this->db->insert('cotizacion', $COTIZACION);
+		//$string = $this->db->get_compiled_select();
+		$IdCotizacion = $this->db->insert_id();
+
+		foreach($COTIZACION->ListaDetalleCotizacion as $item){
+			$detallecotizacion = array(
+				'IdCotizacion' => $IdCotizacion,
+				'DescProducto' => $item["DescProducto"],
+				'cantidad' => $item["cantidad"],
+				'preciounitario' => $item["preciounitario"],
+				'total' => $item["total"],
+			);
+			$this->db->insert('detallecotizacion',$detallecotizacion);
+		}
+
+
+		$respuesta = FALSE;
+		$this->db->trans_complete();
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			$respuesta =  FALSE;
+		} 
+		else {
+			$this->db->trans_commit();
+			$respuesta =  TRUE;
+		}
+
+		
+		$response = array(
+			'respuesta' => $respuesta,
+			'IdCotizacion'=> $IdCotizacion
+		);
+
+		return $response;
+	}
+
+	public function ActualizarCotizacion($Cotizacion){
+		$this->db->trans_start();
+
+		$COTIZACION = array(
+			'IdOrden' => $Cotizacion->IdOrden,
+			'CodCotizacion' => $Cotizacion->CodCotizacion,
+			'Descripcion' => $Cotizacion->Descripcion,
+			'FechaCotizacion' => $Cotizacion->FechaCotizacion,
+			'ImporteTotal' => $Cotizacion->ImporteTotal,
+			'Igv' => $Cotizacion->Igv,
+			'IdEstado' => $Cotizacion->IdEstado
+		);
+
+		$this->db->where('IdCotizacion', $Cotizacion->IdCotizacion);
+		$this->db->insert('cotizacion', $COTIZACION);
+		$this->db->delete('detallecotizacion', array('IdCotizacion' => $Cotizacion->IdCotizacion));
+
+		foreach($COTIZACION->ListaDetalleCotizacion as $item){
+			$detallecotizacion = array(
+				'IdCotizacion' => $IdCotizacion,
+				'DescProducto' => $item["DescProducto"],
+				'cantidad' => $item["cantidad"],
+				'preciounitario' => $item["preciounitario"],
+				'total' => $item["total"],
+			);
+			$this->db->insert('detallecotizacion',$detallecotizacion);
+		}
+
+
+		$respuesta = FALSE;
+		$this->db->trans_complete();
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			$respuesta =  FALSE;
+		} 
+		else {
+			$this->db->trans_commit();
+			$respuesta =  TRUE;
+		}
+
+		
+		$response = array(
+			'respuesta' => $respuesta,
+			'IdCotizacion'=> $IdCotizacion
+		);
+
+		return $response;
+	}
+
+	public function EliminarCotizacion($Cotizacion){
+		$this->db->trans_start();
+		
+		$this->db->delete('detallecotizacion', array('IdCotizacion' => $Cotizacion->IdCotizacion));
+		$this->db->delete('cotizacion', array('IdCotizacion' => $Cotizacion->IdCotizacion));
+		$this->db->trans_complete();
+
+		$respuesta = FALSE;
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			$respuesta =  FALSE;
+		} 
+		else {
+			$this->db->trans_commit();
+			$respuesta =  TRUE;
+		}
+
+		$response = array(
+			'respuesta' => $respuesta,
+			'IdCotizacion'=> $Cotizacion->IdCotizacion
+		);
+
+		return $response;
+	}
+
+	public function ListarCotizacion($Cotizacion){
+		$this->db->select('c.IdCotizacion');
+		$this->db->select('c.IdOrden');
+		$this->db->select('c.CodCotizacion');
+		$this->db->select('c.Descripcion');
+		$this->db->select('c.FechaCotizacion');
+		$this->db->select('c.ImporteTotal');
+		$this->db->select('c.Igv');
+		$this->db->select('c.IdEstado');
+		$this->db->from('cotizacion c');
+		$this->db->join('estado e', 'c.IdEstado = e.IdEstado');
+		$this->db->where('c.IdOrden',$Cotizacion->IdOrden);
+		$string = $this->db->get_compiled_select();
+        $query  = $this->db->query($string);
+        //$numrow = $query->num_rows();
+        $result = $query->result();
+
+		return $result;
+	}
+
+	public function ListarDetalleCotizacion($Cotizacion){
+		$this->db->select('dc.IdDetalleCotizacion');
+		$this->db->select('dc.IdCotizacion');
+		$this->db->select('dc.DescProducto');
+		$this->db->select('dc.cantidad');
+		$this->db->select('dc.preciounitario');
+		$this->db->select('dc.total');
+		$this->db->from('detallecotizacion dc');
+        $this->db->where('dc.IdCotizacion',$Cotizacion->IdCotizacion);
+		$string = $this->db->get_compiled_select();
+        $query  = $this->db->query($string);
+        //$numrow = $query->num_rows();
+        $result = $query->result();
+
+		return $result;
+	}
 }

@@ -10,17 +10,54 @@ class CotizacionesController extends CI_Controller {
 	
 	
 	public function index() {
-	  $this->load->view("Login");
+
+	  $IdOrden = $_GET["IdOrden"];
+	  
+	  $this->load->model('EstadoModel','EstadoModel');
+	  $ListaEstados=$this->EstadoModel->ListarEstados();
+
+	  $Cotizacion = new stdClass();
+	  $Cotizacion->IdCotizacion = 0;
+	  $Cotizacion->IdOrden = $IdOrden;
+
+	  $this->load->model('CotizacionesModel','CotizacionesModel');
+	  $ListaCotizacion=$this->CotizacionesModel->ListarCotizacion($Cotizacion);
+	  $Cotizacion = (object)$CotizacionesModel[0];
+
+	  $this->load->model('CotizacionesModel','CotizacionesModel');
+	  $ListaDetalleCotizacion=$this->CotizacionesModel->ListarDetalleCotizacion($Cotizacion);
+
+
+	  $data['IdOrden'] = $IdOrden;
+	  $data['ListaEstados'] = $ListaEstados;
+	  $data['Cotizacion'] = $Cotizacion;
+	  $data['ListaDetalleCotizacion'] = $ListaDetalleCotizacion;
+
+	  $this->load->view("Cotizacion",$data);
        // $this->load->view("prueba2");
 	}
 
 
-	public function GetCotizaciones(){
-
+	public function GuardarCotizacion(){
+		$Cotizacion = (object)$_POST["Cotizacion"];
+		$this->load->model('CotizacionesModel','CotizacionesModel');
+		if($Cotizacion->IdCotizacion==0){
+			$respuesta=$this->CotizacionesModel->InsertarCotizacion($Cotizacion);
+		}else{
+			$respuesta=$this->CotizacionesModel->ActualizarCotizacion($Cotizacion);
+		}
+		$jsonResponse = json_encode($respuesta);
+		
+		echo $jsonResponse;
 	}
 
+	public function EliminarCotizacion($Cotizacion){
+		$Cotizacion = (object)$_POST["Cotizacion"];
+		$this->load->model('CotizacionesModel','CotizacionesModel');
+		$respuesta=$this->CotizacionesModel->EliminarCotizacion($Cotizacion);
 
-	public function InsertCotizaciones(){
-
+		$jsonResponse = json_encode($respuesta);
+		
+		echo $jsonResponse;
 	}
 }
