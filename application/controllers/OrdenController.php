@@ -25,8 +25,33 @@ class OrdenController extends CI_Controller {
 
         $this->load->model('OrdenModel','OrdenModel');
         $ListaOrdenes=$this->OrdenModel->ListarOrdenes(null);
+
+		$this->load->model('EstadoModel','EstadoModel');
+        $ListaEstados=$this->EstadoModel->ListarEstados();
+		
+		foreach($ListaOrdenes as $item){
+			if(isset($item->IdEstado)){
+				foreach($ListaEstados as $item2){
+					if($item->IdEstado==$item2->IdEstado){
+						$item->EstadoCotizacion = $item2->EstadoDescripcion;
+						if($item->IdEstado==1){
+							$item->btnColor = "btn-dark";
+						}
+						if($item->IdEstado==2){
+							$item->btnColor = "btn-info";
+						}
+						if($item->IdEstado==3){
+							$item->btnColor = "btn-warning";
+						}
+					}
+				}
+			}else{
+				$item->EstadoCotizacion = "Pendiente";
+				$item->btnColor = "btn-dark";
+			}
+		}
+
         $data['ListaOrdenes'] = $ListaOrdenes;
-        
         $this->load->view('Orden',$data);
     }
     
@@ -55,6 +80,31 @@ class OrdenController extends CI_Controller {
 
 		$this->load->model('OrdenModel','OrdenModel');
 		$ListaOrdenes=$this->OrdenModel->ListarOrdenes($FiltrosOrden);
+
+		$this->load->model('EstadoModel','EstadoModel');
+        $ListaEstados=$this->EstadoModel->ListarEstados();
+		
+		foreach($ListaOrdenes as $item){
+			if(isset($item->IdEstado)){
+				foreach($ListaEstados as $item2){
+					if($item->IdEstado==$item2->IdEstado){
+						$item->EstadoCotizacion = $item2->EstadoDescripcion;
+						if($item->IdEstado==1){
+							$item->btnColor = "btn-dark";
+						}
+						if($item->IdEstado==2){
+							$item->btnColor = "btn-info";
+						}
+						if($item->IdEstado==3){
+							$item->btnColor = "btn-warning";
+						}
+					}
+				}
+			}else{
+				$item->EstadoCotizacion = "Pendiente";
+				$item->btnColor = "btn-dark";
+			}
+		}
 
 		$jsonResponse = json_encode($ListaOrdenes);
 		

@@ -91,8 +91,8 @@
                     <td style="text-align: center;"><?php print($row->FechaRegistro); ?></td>
                     <td style="text-align: center;"><?php print($row->nombre); ?></td>
                     <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm" href='/CotizacionesController/Index?IdOrden=<?php print($row->IdOrden);?>';>
-                        <span class="fa fa-plus"></span>Pendiente</a>
+                        <a class="btn <?php print($row->btnColor);?> btn-sm" href='/CotizacionesController/Index?IdOrden=<?php print($row->IdOrden);?>';>
+                        <span class="fa fa-plus"></span><?php print($row->EstadoCotizacion);?></a>
                     </td>
                     <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">
@@ -199,8 +199,8 @@
                 <td>{{item.FechaRegistro}}</td>
                 <td>{{item.nombre}}</td>
                 <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm" href='/CotizacionesController/index?IdOrden={{item.IdOrden}}';>
-                        <span class="fa fa-plus">Pendiente</span></a>
+                        <a class="btn {{item.btnColor}} btn-sm" href='/CotizacionesController/index?IdOrden={{item.IdOrden}}';>
+                        <span class="fa fa-plus">{{item.EstadoCotizacion}}</span></a>
                     </td>
                     <td style="text-align: center;">
                       <a class="btn btn-success btn-sm">

@@ -34,9 +34,14 @@
                     <h2>Cotización <small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li> -->                        
+                      </li> -->
                       <caption>
-                        <button class="btn btn-primary" onclick="javascript: NuevaOrden();">Guardar
+                        <a class="btn btn-dark" href="/OrdenController/Index">REGRESAR
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                        </a>
+                      </caption>                    
+                      <caption>
+                        <button class="btn btn-primary" onclick="javascript: GuardarCotizacion();">Guardar
                         <span class="glyphicon glyphicon-floppy-disk"></span>
                         </button>
                       </caption>
@@ -60,15 +65,15 @@
                   <div class="row">
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">CodCotizacion</label>
-                        <input type="email" class="form-control" id="DescripcionOrden" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="Codcotizacion" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Descripcion</label>
-                        <input type="email" class="form-control" id="DescripcionOrden" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="Descripcion" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Estado</label>
-                        <select name="" class="form-control input-sm" id="IdUsuario">
+                        <select name="" class="form-control input-sm" id="IdEstado">
                             <option value="0">--Seleccione--</option>
                             <?php foreach($ListaEstados as $row){ ?>
                                 <option value="<?php print($row->IdEstado); ?>"><?php print($row->EstadoDescripcion); ?></option>
@@ -137,6 +142,7 @@
       <div class="modal-body">
     <div id="frmnuevoOrden" method="POST">
         <input type="hidden" id="IdCotizacion" value="0"></input>
+        <input type="hidden" id="IdOrden" value="0"></input>
         <div class="form-group">
             <label for="exampleInputEmail1">Descripcion</label>
             <input type="email" class="form-control" id="DescProducto">
@@ -217,9 +223,9 @@
         $("#FechaCotizacion").datepicker({ dateFormat: 'dd/mm/yy' }).val();
       });
       
-      var ListaDetalleCotizacion = [];
-      var ListaDetalleCotizacionJson = <?php print json_encode($ListaDetalleCotizacion);?>;
-      var CotizacionJson = <?php print json_encode($Cotizacion);?>
+      var ListaDetalleCotizacion = <?php print json_encode($ListaDetalleCotizacion);?>;
+      var Cotizacion = <?php print json_encode($Cotizacion);?>;
+      InicializarComponentes();
     </script>
 
   </body>

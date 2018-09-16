@@ -15,12 +15,14 @@ class OrdenModel extends CI_Model {
 		$this->db->select('o.DescripcionOrden');
         $this->db->select('DATE_FORMAT(o.FechaRegistro,"%d-%m-%Y") FechaRegistro');
         $this->db->select('p.nombre');
-        $this->db->select('c.razonsocial');
+		$this->db->select('c.razonsocial');
+		$this->db->select('cot.IdEstado');
 
 		$this->db->from('Orden o');
         $this->db->join('usuario u', 'o.IdEmpleado = u.IdUsuario');
 		$this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
 		$this->db->join('cliente c', 'o.IdCliente = c.IdCliente');
+		$this->db->join('Cotizacion cot', 'o.IdOrden = cot.IdOrden', 'left');
 		
 		// if($FiltrosOrden!=null)
         // $this->db->where('p.estado',$FiltrosOrden->Estado);

@@ -37,19 +37,20 @@ class CotizacionesModel extends CI_Model {
 
 		$COTIZACION = array(
 			'IdOrden' => $Cotizacion->IdOrden,
-			'CodCotizacion' => $Cotizacion->CodCotizacion,
+			'Codcotizacion' => $Cotizacion->Codcotizacion,
 			'Descripcion' => $Cotizacion->Descripcion,
 			'FechaCotizacion' => $Cotizacion->FechaCotizacion,
 			'ImporteTotal' => $Cotizacion->ImporteTotal,
 			'Igv' => $Cotizacion->Igv,
-			'IdEstado' => $Cotizacion->IdEstado
+			'IdEstado' => $Cotizacion->IdEstado,
+			'Importe' => $Cotizacion->Importe,
 		);
 
 		$this->db->insert('cotizacion', $COTIZACION);
 		//$string = $this->db->get_compiled_select();
 		$IdCotizacion = $this->db->insert_id();
 
-		foreach($COTIZACION->ListaDetalleCotizacion as $item){
+		foreach($Cotizacion->ListaDetalleCotizacion as $item){
 			$detallecotizacion = array(
 				'IdCotizacion' => $IdCotizacion,
 				'DescProducto' => $item["DescProducto"],
@@ -86,21 +87,22 @@ class CotizacionesModel extends CI_Model {
 
 		$COTIZACION = array(
 			'IdOrden' => $Cotizacion->IdOrden,
-			'CodCotizacion' => $Cotizacion->CodCotizacion,
+			'Codcotizacion' => $Cotizacion->Codcotizacion,
 			'Descripcion' => $Cotizacion->Descripcion,
 			'FechaCotizacion' => $Cotizacion->FechaCotizacion,
 			'ImporteTotal' => $Cotizacion->ImporteTotal,
 			'Igv' => $Cotizacion->Igv,
-			'IdEstado' => $Cotizacion->IdEstado
+			'IdEstado' => $Cotizacion->IdEstado,
+			'Importe' => $Cotizacion->Importe
 		);
 
 		$this->db->where('IdCotizacion', $Cotizacion->IdCotizacion);
-		$this->db->insert('cotizacion', $COTIZACION);
+		$this->db->update('cotizacion', $COTIZACION);
 		$this->db->delete('detallecotizacion', array('IdCotizacion' => $Cotizacion->IdCotizacion));
 
-		foreach($COTIZACION->ListaDetalleCotizacion as $item){
+		foreach($Cotizacion->ListaDetalleCotizacion as $item){
 			$detallecotizacion = array(
-				'IdCotizacion' => $IdCotizacion,
+				'IdCotizacion' => $Cotizacion->IdCotizacion,
 				'DescProducto' => $item["DescProducto"],
 				'cantidad' => $item["cantidad"],
 				'preciounitario' => $item["preciounitario"],
@@ -124,7 +126,7 @@ class CotizacionesModel extends CI_Model {
 		
 		$response = array(
 			'respuesta' => $respuesta,
-			'IdCotizacion'=> $IdCotizacion
+			'IdCotizacion'=> $Cotizacion->IdCotizacion
 		);
 
 		return $response;
@@ -158,12 +160,13 @@ class CotizacionesModel extends CI_Model {
 	public function ListarCotizacion($Cotizacion){
 		$this->db->select('c.IdCotizacion');
 		$this->db->select('c.IdOrden');
-		$this->db->select('c.CodCotizacion');
+		$this->db->select('c.Codcotizacion');
 		$this->db->select('c.Descripcion');
 		$this->db->select('c.FechaCotizacion');
 		$this->db->select('c.ImporteTotal');
 		$this->db->select('c.Igv');
 		$this->db->select('c.IdEstado');
+		$this->db->select('c.Importe');
 		$this->db->from('cotizacion c');
 		$this->db->join('estado e', 'c.IdEstado = e.IdEstado');
 		$this->db->where('c.IdOrden',$Cotizacion->IdOrden);

@@ -19,14 +19,16 @@ class CotizacionesController extends CI_Controller {
 	  $Cotizacion = new stdClass();
 	  $Cotizacion->IdCotizacion = 0;
 	  $Cotizacion->IdOrden = $IdOrden;
+	  $ListaDetalleCotizacion = array();
 
 	  $this->load->model('CotizacionesModel','CotizacionesModel');
 	  $ListaCotizacion=$this->CotizacionesModel->ListarCotizacion($Cotizacion);
-	  $Cotizacion = (object)$CotizacionesModel[0];
+	  $Cotizacion = $ListaCotizacion != null ? (object)$ListaCotizacion[0] : $Cotizacion;
 
-	  $this->load->model('CotizacionesModel','CotizacionesModel');
-	  $ListaDetalleCotizacion=$this->CotizacionesModel->ListarDetalleCotizacion($Cotizacion);
-
+	  if($Cotizacion->IdCotizacion!=0){
+		$this->load->model('CotizacionesModel','CotizacionesModel');
+	  	$ListaDetalleCotizacion=$this->CotizacionesModel->ListarDetalleCotizacion($Cotizacion);
+	  }
 
 	  $data['IdOrden'] = $IdOrden;
 	  $data['ListaEstados'] = $ListaEstados;
@@ -41,7 +43,7 @@ class CotizacionesController extends CI_Controller {
 	public function GuardarCotizacion(){
 		$Cotizacion = (object)$_POST["Cotizacion"];
 		$this->load->model('CotizacionesModel','CotizacionesModel');
-		if($Cotizacion->IdCotizacion==0){
+		if((int)$Cotizacion->IdCotizacion==0){
 			$respuesta=$this->CotizacionesModel->InsertarCotizacion($Cotizacion);
 		}else{
 			$respuesta=$this->CotizacionesModel->ActualizarCotizacion($Cotizacion);
