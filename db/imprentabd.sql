@@ -277,9 +277,10 @@ DROP TABLE IF EXISTS `reunion`;
 CREATE TABLE `reunion` (
   `IdReunion` int(11) NOT NULL AUTO_INCREMENT,
   `IdOrden` int(11) NOT NULL,
-  `IdReunionPadre` int(11) NOT NULL,
+  `IdReunionPadre` int(11) DEFAULT NULL,
   `Descripcion` varchar(45) DEFAULT NULL,
   `IdEstado` int(11) NOT NULL,
+  `NroReunion` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdReunion`),
   KEY `fk_Reunion_Orden1_idx` (`IdOrden`),
   KEY `fk_Reunion_Reunion1_idx` (`IdReunionPadre`),
@@ -363,4 +364,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-16 18:44:54
+-- Dump completed on 2018-09-16 22:14:33

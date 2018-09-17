@@ -91,26 +91,26 @@
                     <td style="text-align: center;"><?php print($row->FechaRegistro); ?></td>
                     <td style="text-align: center;"><?php print($row->nombre); ?></td>
                     <td style="text-align: center;">
-                        <a class="btn <?php print($row->btnColor);?> btn-sm" href='/CotizacionesController/Index?IdOrden=<?php print($row->IdOrden);?>';>
+                        <a class="btn <?php print($row->btnColor);?> btn-sm" href='/CotizacionesController/Index?IdOrden=<?php print($row->IdOrden);?>'>
                         <span class="fa fa-plus"></span><?php print($row->EstadoCotizacion);?></a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm">
+                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroRunion=1'>
                       <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                      <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm">
+                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroRunion=2'>
                       <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm">
+                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroRunion=3'>
                       <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm">
+                        <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroRunion=4'>
                         <span class="fa fa-plus">Pendiente</span>
                         </a>
                     </td>
@@ -203,22 +203,22 @@
                         <span class="fa fa-plus">{{item.EstadoCotizacion}}</span></a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm">
+                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroRunion=1'>
                       <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                      <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm">
+                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroRunion=2'>
                       <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm">
+                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroRunion=3'>
                       <span class="fa fa-plus">Pendiente</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm">
+                        <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroRunion=4'>
                         <span class="fa fa-plus">Pendiente</span>
                         </a>
                     </td>
