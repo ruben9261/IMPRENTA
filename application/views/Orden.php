@@ -71,9 +71,9 @@
                         <tr>
                           <th style="text-align: center;">N° Orden</th>
                           <th style="text-align: center;">Descripción</th>
-                          <th style="text-align: center;">Fecha Orden</th>
-                          <th style="text-align: center;">Vendedor</th>
-                          <th style="text-align: center;">Empresa</th>
+                          <th style="text-align: center;">Cliente</th>
+                          <th style="text-align: center;">Fecha Registro</th>
+                          <th style="text-align: center;">Usuario</th>
                           <th style="text-align: center;">Cotizacion</th>
                           <th style="text-align: center;">Etapa 1</th>
                           <th style="text-align: center;">Etapa 2</th>
