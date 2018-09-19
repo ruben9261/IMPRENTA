@@ -4,10 +4,9 @@
 class LoginController extends CI_Controller {
 	
 	
-	public function _construct()
-	{	parent::_construct();
-		//$this->load->helper('url');
-	    //$this->load->model('LoginModel');
+	public function __construct()
+	{	parent::__construct();
+		$this->load->library('session');
 	}
 	
 	
@@ -26,14 +25,21 @@ class LoginController extends CI_Controller {
 		$UsuarioResponse=$this->LoginModel->LoginUsuario($Usuario);
 
 		if($UsuarioResponse != null){
-			$this->load->library('session');
 			$this->session->set_userdata('Usuario',$UsuarioResponse);
+			$this->session->set_userdata('Loggedin', true);
 		}
 
 		$jsonResponse = json_encode($UsuarioResponse);
 		
 		echo $jsonResponse;
 	}
+
+	public function Logout()
+    {
+		$this->session->unset_userdata('Loggedin');
+		$this->session->unset_userdata('Usuario');
+		header('Location: /LoginController');
+    }
 	
 	
 	public function validar()

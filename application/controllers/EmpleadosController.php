@@ -4,11 +4,13 @@
 
 class EmpleadosController extends CI_Controller {
 
-	public function _construct()
-	{	parent::_construct();
-		//$this->load->helper('url');
-		//$this->load->model('LoginModel');
-		$this->load->model('UsuarioModel');
+	public function __construct()
+	{	parent::__construct();
+		$this->load->library('session');
+		if (!$this->session->userdata('Loggedin'))
+        {
+			header('Location: /LoginController');
+        }
 	}
 
 	public function Empleados(){

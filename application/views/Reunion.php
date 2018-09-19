@@ -139,15 +139,15 @@
                         <input type="email" class="form-control" id="telref" >
                     </div>     
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                         <div class="form-group col-md-4">
                             <button class="btn btn-primary" onclick="javascript: NuevoItem();">Agregar Item</button>
                         </div>
-                  </div>
+                  </div> -->
                   </div>
 
 
-                  <div class="x_content">
+                  <!-- <div class="x_content">
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
@@ -163,7 +163,7 @@
                     </tbody>
                     </table>
                   </div>
-                </div>
+                </div> -->
     </div>
    </div>
 

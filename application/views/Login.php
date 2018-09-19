@@ -24,7 +24,7 @@
                                           <input type="password" name="password" id="PasswordUsuario" class="form-control input-sm">
                                           <p></p>
                                           <span class="btn btn-primary btn-sm" onclick="javascript: Login();">Entrar</span>
-                                          <a href="registro.php" class="btn btn-danger btn-sm">Registrar</a>
+                                          <!-- <a href="registro.php" class="btn btn-danger btn-sm">Registrar</a> -->
                                     </form>
                               </div>
                         </div>

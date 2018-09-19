@@ -38,7 +38,11 @@
                     <ul class="nav navbar-right panel_toolbox">
                       <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li> -->
-
+                      <caption>
+                        <a class="btn btn-dark" href="/MainController">Regresar
+                        <span class="glyphicon glyphicon-menu-left"></span>
+                        </a>
+                      </caption>
                       <caption>
                         <button class="btn btn-primary" onclick="javascript: NuevaOrden();">Nueva Orden
                         <span class="glyphicon glyphicon-plus"></span>
@@ -46,7 +50,7 @@
                       </caption>
 
 
-                        <button class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEdicion">
+                        <!-- <button class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEdicion"> -->
                       </button>
 
                               <li class="dropdown">
@@ -250,7 +254,7 @@
     <script src="/public/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
     <!-- Custom Theme Scripts -->
     
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- <script src="librerias/alertify/alertify.js"></script> -->
 
     <script src="/public/pnotify/pnotify.custom.min.js"></script>

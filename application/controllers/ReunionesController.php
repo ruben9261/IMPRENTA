@@ -4,8 +4,13 @@
 class ReunionesController extends CI_Controller {
 	
 	
-	public function _construct()
-	{	parent::_construct();
+	public function __construct()
+	{	parent::__construct();
+		$this->load->library('session');
+		if (!$this->session->userdata('Loggedin'))
+        {
+			header('Location: /LoginController');
+        }
 	}
 	
 	
