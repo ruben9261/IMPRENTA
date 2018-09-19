@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>REUNION 1 </title>
+    <title>REUNION 2 </title>
     <!-- Bootstrap -->
     <link href="/public/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -25,12 +25,10 @@
 
     <link rel="stylesheet" type="text/css" href="/public/pnotify/pnotify.custom.min.css">
 
-
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-
-  </head>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+       </head>
 
   <body class="nav-md">
     <div class="row">
@@ -69,22 +67,14 @@
                   </div>
                   <div class="cabecera">
                   <div class="row">
-
-                    <div class="col-md-4">
-                      <label for="country">Tipo de Entrega</label>
+                    <div class="form-group col-md-4">
+                       <label for="country">Carta Presentación</label>
                       <select id="interes" name="tipoentrega" class="form-control"></br>
                       <option value="0">Seleccione</option>
-                      <option value="mesa_partes">Mesa Partes</option>
-                      <option value="secretaria">Secretaria</option>
-                      <option value="logistica">Logistica</option>
-                      <option value="telefono">Telefono</option>             
-                      <option value="correo">Correo</option>
-                      <option value="otros">Otros</option>
+                      <option value="mesa_partes">Físico</option>
+                      <option value="secretaria">Correo</option>
                       </select>
-                      </div>
-
-
-
+                    </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Nombre Contacto</label>
                         <input type="email" class="form-control" id="Descripcion" aria-describedby="emailHelp">
@@ -99,6 +89,7 @@
                         </select>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Fecha Visita</label>
@@ -134,19 +125,21 @@
                     });
                     </script>
 
+
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Teléfono Referencia</label>
                         <input type="email" class="form-control" id="telref" >
                     </div>     
+
                   </div>
+
+
                   <div class="row">
                         <div class="form-group col-md-4">
                             <button class="btn btn-primary" onclick="javascript: NuevoItem();">Agregar Item</button>
                         </div>
                   </div>
                   </div>
-
-
                   <div class="x_content">
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
