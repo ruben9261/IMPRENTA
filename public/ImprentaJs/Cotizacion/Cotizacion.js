@@ -142,6 +142,7 @@ var GuardarCotizacion = function(){
         success: function(response){
             var response = JSON.parse(response);
             if(response.respuesta){
+                $("#IdCotizacion").val(response.IdCotizacion);
                 AlertNotify('', 'Exito', 'El registro se guardo correctamente', 'success');
             }else{
                 AlertNotify('', 'Error', 'Ocurrio un problema al guardar los registros', 'danger');

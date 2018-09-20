@@ -8,29 +8,22 @@ class ReunionesModel extends CI_Model {
 		parent::_construct();
 		$this->load->database('default');
 	}
-	
-	
-	//querybuilder
 
 	public function InsertarReunion($Reunion){
-        $this->db->trans_start();
+		$this->db->trans_start();
         
-        if(isset($Reunion->IdReunionPadre)){
-            $REUNION = array(
-                'IdOrden' => $Reunion->IdOrden,
-                'IdReunionPadre' => $Reunion->IdReunionPadre,
-                'Descripcion' => $Reunion->Descripcion,
-                'IdEstado' => $Reunion->IdEstado,
-                'NroReunion' => $Reunion->NroReunion
-            );
-        }else{
-            $REUNION = array(
-                'IdOrden' => $Reunion->IdOrden,
-                'Descripcion' => $Reunion->Descripcion,
-                'IdEstado' => $Reunion->IdEstado,
-                'NroReunion' => $Reunion->NroReunion
-            );
-        }
+        $REUNION = array(
+			'IdTipoEntrega' => $Reunion->IdTipoEntrega,
+			'NombreContacto' => $Reunion->NombreContacto,
+			'IdEstado' => $Reunion->IdEstado,
+			'FechaVisita' => date("Y-m-d",strtotime($Reunion->FechaVisita)),
+			'Observaciones' => $Reunion->Observaciones,
+			'IdTipoInteres' => $Reunion->IdTipoInteres,
+			'ProximaVisita' => date("Y-m-d",strtotime($Reunion->ProximaVisita)),
+			'TelefonoReferencial' => $Reunion->TelefonoReferencial,
+			'NroReunion' => $Reunion->NroReunion,
+			'IdOrden' => $Reunion->IdOrden
+		);
 
 
 		$this->db->insert('reunion', $REUNION);
@@ -61,22 +54,18 @@ class ReunionesModel extends CI_Model {
 	public function ActualizarReunion($Reunion){
 		$this->db->trans_start();
 
-		if(isset($Reunion->IdReunionPadre)){
-            $REUNION = array(
-                'IdOrden' => $Reunion->IdOrden,
-                'IdReunionPadre' => $Reunion->IdReunionPadre,
-                'Descripcion' => $Reunion->Descripcion,
-                'IdEstado' => $Reunion->IdEstado,
-                'NroReunion' => $Reunion->NroReunion
-            );
-        }else{
-            $REUNION = array(
-                'IdOrden' => $Reunion->IdOrden,
-                'Descripcion' => $Reunion->Descripcion,
-                'IdEstado' => $Reunion->IdEstado,
-                'NroReunion' => $Reunion->NroReunion
-            );
-        }
+		$REUNION = array(
+			'IdTipoEntrega' => $Reunion->IdTipoEntrega,
+			'NombreContacto' => $Reunion->NombreContacto,
+			'IdEstado' => $Reunion->IdEstado,
+			'FechaVisita' => date("Y-m-d",strtotime($Reunion->FechaVisita)),
+			'Observaciones' => $Reunion->Observaciones,
+			'IdTipoInteres' => $Reunion->IdTipoInteres,
+			'ProximaVisita' => date("Y-m-d",strtotime($Reunion->ProximaVisita)),
+			'TelefonoReferencial' => $Reunion->TelefonoReferencial,
+			'NroReunion' => $Reunion->NroReunion,
+			'IdOrden' => $Reunion->IdOrden
+		);
 
 		$this->db->where('IdReunion', $Reunion->IdReunion);
 		$this->db->update('reunion', $REUNION);
@@ -102,11 +91,10 @@ class ReunionesModel extends CI_Model {
 		return $response;
 	}
 
-	public function EliminarCotizacion($Cotizacion){
+	public function EliminarReunion($Reunion){
 		$this->db->trans_start();
 		
-		$this->db->delete('detallecotizacion', array('IdCotizacion' => $Cotizacion->IdCotizacion));
-		$this->db->delete('cotizacion', array('IdCotizacion' => $Cotizacion->IdCotizacion));
+		$this->db->delete('reunion', array('IdReunion' => $Reunion->IdReunion));
 		$this->db->trans_complete();
 
 		$respuesta = FALSE;
@@ -121,23 +109,54 @@ class ReunionesModel extends CI_Model {
 
 		$response = array(
 			'respuesta' => $respuesta,
-			'IdCotizacion'=> $Cotizacion->IdCotizacion
+			'IdReunion'=> $Reunion->IdReunion
 		);
 
 		return $response;
 	}
 
-	public function ListarReunion($Reunion)
+	public function ObtenerReunion($Reunion)
 	{	
-        $this->db->select('r.IdReunion');
-        $this->db->select('r.IdOrden');
-        $this->db->select('r.IdReunionPadre');
-        $this->db->select('r.Descripcion');
-        $this->db->select('r.IdEstado');
-        $this->db->select('r.NroReunion');
+		$this->db->select('r.IdReunion');
+        $this->db->select('r.IdTipoEntrega');
+		$this->db->select('r.NombreContacto');
+		$this->db->select('r.IdEstado');
+        $this->db->select('DATE_FORMAT(r.FechaVisita,"%d-%m-%Y") FechaVisita');
+        $this->db->select('r.Observaciones');
+		$this->db->select('r.IdTipoInteres');
+		$this->db->select('DATE_FORMAT(r.ProximaVisita,"%d-%m-%Y") ProximaVisita');
+		$this->db->select('r.TelefonoReferencial');
+		$this->db->select('r.IdOrden');
+		$this->db->select('r.NroReunion');
 		$this->db->from('Reunion r');
         $this->db->where('r.IdOrden',$Reunion->IdOrden);
         $this->db->where('r.NroReunion',$Reunion->NroReunion);
+		$string = $this->db->get_compiled_select();
+        $query  = $this->db->query($string);
+        //$numrow = $query->num_rows();
+        $result = $query->result();
+
+		return $result;
+	}
+
+	public function ListarReunion($FiltrosReunion)
+	{	
+		$this->db->select('r.IdReunion');
+        $this->db->select('r.IdTipoEntrega');
+		$this->db->select('r.NombreContacto');
+		$this->db->select('r.IdEstado');
+        $this->db->select('DATE_FORMAT(r.FechaVisita,"%d-%m-%Y") FechaVisita');
+        $this->db->select('r.Observaciones');
+		$this->db->select('r.IdTipoInteres');
+		$this->db->select('DATE_FORMAT(r.ProximaVisita,"%d-%m-%Y") ProximaVisita');
+		$this->db->select('r.TelefonoReferencial');
+		$this->db->select('r.IdOrden');
+		$this->db->select('r.NroReunion');
+		$this->db->from('Reunion r');
+
+		if(isset($FiltrosReunion))
+		$this->db->where('r.IdOrden',$FiltrosReunion->IdOrden);
+		
 		$string = $this->db->get_compiled_select();
         $query  = $this->db->query($string);
         //$numrow = $query->num_rows();

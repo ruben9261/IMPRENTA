@@ -47,7 +47,7 @@
                         </a>
                       </caption>                    
                       <caption>
-                        <button class="btn btn-primary" onclick="javascript: GuardarCotizacion();">Guardar
+                        <button class="btn btn-primary" onclick="javascript: GuardarReunion();">Guardar
                         <span class="glyphicon glyphicon-floppy-disk"></span>
                         </button>
                       </caption>
@@ -69,17 +69,15 @@
                   </div>
                   <div class="cabecera">
                   <div class="row">
-
+                    <input type="hidden" id="NroReunion" value="<?php print($NroReunion)?>">
+                    <input type="hidden" id="IdOrden" value="<?php print($IdOrden)?>">
                     <div class="col-md-4">
                       <label for="country">Tipo de Entrega</label>
-                      <select id="interes" name="tipoentrega" class="form-control"></br>
-                      <option value="0">Seleccione</option>
-                      <option value="mesa_partes">Mesa Partes</option>
-                      <option value="secretaria">Secretaria</option>
-                      <option value="logistica">Logistica</option>
-                      <option value="telefono">Telefono</option>             
-                      <option value="correo">Correo</option>
-                      <option value="otros">Otros</option>
+                      <select id="IdTipoEntrega" name="tipoentrega" class="form-control"></br>
+                      <option value="0">--Seleccione--</option>
+                      <?php foreach($ListaTipoEntrega as $row){ ?>
+                                <option value="<?php print($row->IdTipoEntrega); ?>"><?php print($row->DescTipoEntrega); ?></option>
+                      <?php } ?>
                       </select>
                       </div>
 
@@ -87,7 +85,7 @@
 
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Nombre Contacto</label>
-                        <input type="email" class="form-control" id="Descripcion" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="NombreContacto" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Estado</label>
@@ -102,38 +100,34 @@
                   <div class="row">
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Fecha Visita</label>
-                        <input type="email" class="form-control" id="FechaCotizacion" >
+                        <input type="email" class="form-control" id="FechaVisita" >
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Observaciones</label>
-                        <input type="email" class="form-control" id="observaciones" aria-describedby="emailHelp">
+                        <input type="email" class="form-control" id="Observaciones" aria-describedby="emailHelp">
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="form-group col-md-4">                       
                       <label for="country">Interes</label>
-                      <select id="interes" name="interes" class="form-control"></br>
-                      <option value="0">Seleccione</option>
-                      <option value="interes">Interes</option>
-                      <option value="nointeres">No hay Interes</option>
+                      <select id="IdTipoInteres" name="interes" class="form-control"></br>
+                      <option value="0">--Seleccione--</option>
+                      <?php foreach($ListaTipoInteres as $row){ ?>
+                                <option value="<?php print($row->IdTipoInteres); ?>"><?php print($row->DescTipoInteres); ?></option>
+                      <?php } ?>
                       </select>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label>Proxima Visita</label>
-                      <input type="text" class="form-control input-sm" id="datepicker1" name="fprogramada"></br>
+                      <input type="text" class="form-control input-sm" id="ProximaVisita" name="fprogramada"></br>
                     </div>
-                    <script type="text/javascript">
-                    $(function() {
-                    $("#datepicker1").datepicker();
-                    });
-                    </script>
 
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Teléfono Referencia</label>
-                        <input type="email" class="form-control" id="telref" >
+                        <input type="email" class="form-control" id="TelefonoReferencial" >
                     </div>     
                   </div>
                   <!-- <div class="row">
@@ -178,6 +172,7 @@
       </div>
       <div class="modal-body">
     <div id="frmnuevoOrden" method="POST">
+        <input type="hidden" id="IdReunion" value="0"></input>
         <input type="hidden" id="IdCotizacion" value="0"></input>
         <input type="hidden" id="IdOrden" value="0"></input>
         <div class="form-group">
@@ -210,23 +205,6 @@
   </div>
 </div>
 
-<!-- HandleBars -->
-    <script id="lista-detallecotizacion-template" type="text/x-handlebars-template">
-      {{#each this.ListaDetalleCotizacion as |item|}}
-        <tr>
-                <td>{{item.IdItem}}</td>
-                <td>{{item.DescProducto}}</td>
-                <td>{{item.cantidad}}</td>
-                <td>{{item.preciounitario}}</td>
-                <td>{{Multiplicar item.cantidad item.preciounitario}}</td>
-                <td style="text-align: center;">
-                    <a class="btn btn-danger btn-sm" onclick="javascript: EliminarItem({{item.IdItem}});">
-                    <span class="fa fa-trash"></span>
-                    </a>
-                </td>
-        </tr>
-      {{/each}}
-    </script>
 <!-- MODAL PARA EDITAR REGISTRO -->
     <!-- jQuery -->
     <script src="/public/vendors/jquery/dist/jquery.min.js"></script>
@@ -257,11 +235,11 @@
 
     <script type="text/javascript">
       $(function() {
-        $("#FechaCotizacion").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+        $("#FechaVisita").datepicker({ dateFormat: 'dd-mm-yy' }).val();
+        $("#ProximaVisita").datepicker({ dateFormat: 'dd-mm-yy' }).val();
       });
-      
-      var ListaDetalleCotizacion = <?php print json_encode($ListaDetalleCotizacion);?>;
-      var Cotizacion = <?php print json_encode($Cotizacion);?>;
+
+      var Reunion = <?php print json_encode($Reunion);?>;
       InicializarComponentes();
     </script>
 
