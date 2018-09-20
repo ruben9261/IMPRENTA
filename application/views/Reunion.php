@@ -121,9 +121,6 @@
                       </select>
                     </div>
 
-
-
-
                     <div class="form-group col-md-4">
                         <label>Proxima Visita</label>
                       <input type="text" class="form-control input-sm" id="datepicker1" name="fprogramada"></br>

@@ -52,7 +52,7 @@
           </a>
           </li> 
 
-          <li><a href="../empresa/index.php"><span class="glyphicon glyphicon-lock"></span> Clientes <span class="caret"></span>
+          <li><a href="/ClientesController/Clientes"><span class="glyphicon glyphicon-lock"></span> Clientes <span class="caret"></span>
           </a>
           </li> 
 

@@ -10,7 +10,7 @@ class OrdenController extends CI_Controller {
 		if (!$this->session->userdata('Loggedin'))
         {
 			header('Location: /LoginController');
-        }
+		}
 	}
 	
 	
@@ -22,8 +22,8 @@ class OrdenController extends CI_Controller {
         $ListaUsuarios=$this->UsuarioModel->ListarUsuarios(null);
         $data['ListaUsuarios'] = $ListaUsuarios;
 
-        $this->load->model('ClientesModel','ClientesModel');
-        $ListaClientes=$this->ClientesModel->ListarClientes();
+		$this->load->model('ClientesModel','ClientesModel');
+        $ListaClientes=$this->ClientesModel->ListarClientes(null);
         $data['ListaClientes'] = $ListaClientes;
 
         $this->load->model('OrdenModel','OrdenModel');
