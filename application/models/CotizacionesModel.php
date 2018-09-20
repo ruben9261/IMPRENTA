@@ -39,7 +39,7 @@ class CotizacionesModel extends CI_Model {
 			'IdOrden' => $Cotizacion->IdOrden,
 			'Codcotizacion' => $Cotizacion->Codcotizacion,
 			'Descripcion' => $Cotizacion->Descripcion,
-			'FechaCotizacion' => $Cotizacion->FechaCotizacion,
+			'FechaCotizacion' => date("Y-m-d",strtotime($Cotizacion->FechaCotizacion)),
 			'ImporteTotal' => $Cotizacion->ImporteTotal,
 			'Igv' => $Cotizacion->Igv,
 			'IdEstado' => $Cotizacion->IdEstado,
@@ -89,7 +89,7 @@ class CotizacionesModel extends CI_Model {
 			'IdOrden' => $Cotizacion->IdOrden,
 			'Codcotizacion' => $Cotizacion->Codcotizacion,
 			'Descripcion' => $Cotizacion->Descripcion,
-			'FechaCotizacion' => $Cotizacion->FechaCotizacion,
+			'FechaCotizacion' => date("Y-m-d",strtotime($Cotizacion->FechaCotizacion)),
 			'ImporteTotal' => $Cotizacion->ImporteTotal,
 			'Igv' => $Cotizacion->Igv,
 			'IdEstado' => $Cotizacion->IdEstado,
@@ -162,7 +162,7 @@ class CotizacionesModel extends CI_Model {
 		$this->db->select('c.IdOrden');
 		$this->db->select('c.Codcotizacion');
 		$this->db->select('c.Descripcion');
-		$this->db->select('c.FechaCotizacion');
+		$this->db->select('DATE_FORMAT(c.FechaCotizacion,"%d-%m-%Y") FechaCotizacion');
 		$this->db->select('c.ImporteTotal');
 		$this->db->select('c.Igv');
 		$this->db->select('c.IdEstado');

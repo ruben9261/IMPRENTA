@@ -220,7 +220,7 @@
 
     <script type="text/javascript">
       $(function() {
-        $("#FechaCotizacion").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+        $("#FechaCotizacion").datepicker({ dateFormat: 'dd-mm-yy' }).val();
       });
       
       var ListaDetalleCotizacion = <?php print json_encode($ListaDetalleCotizacion);?>;

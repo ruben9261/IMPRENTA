@@ -8,9 +8,9 @@ class MainController extends CI_Controller {
 	{	parent::__construct();
 		$this->load->library('session');
 		if (!$this->session->userdata('Loggedin'))
-        {
+		{
 			header('Location: /LoginController');
-        }
+        	}
 	}
 	
 	

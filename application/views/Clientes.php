@@ -28,7 +28,7 @@
         <br/><br/>
        
         <button type="button" onclick="javascript: NuevoCliente();" class="btn btn-primary btn-lg" >
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Nuevo
+          <span class="" aria-hidden="true"></span> Nuevo
         </button>
 
         

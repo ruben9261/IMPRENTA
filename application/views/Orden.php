@@ -267,10 +267,10 @@
 
     <script type="text/javascript">
     $(function() {
-    $("#FechaRegistro").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+    $("#FechaRegistro").datepicker({ dateFormat: 'dd-mm-yy' }).val();
 
-    $("#fecha").datepicker({ dateFormat: 'dd/mm/yy' }).val();
-    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+    // $("#fecha").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+    // $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' }).val();
     });
     </script>
 
