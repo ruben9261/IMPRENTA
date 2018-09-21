@@ -156,4 +156,16 @@ class OrdenController extends CI_Controller {
 
 	}
 	
+	public function EliminarOrden(){
+
+		$Orden = $_POST["Orden"];
+		$Orden = (object)$Orden;
+
+		$this->load->model('OrdenModel','OrdenModel');
+		$respuesta=$this->OrdenModel->EliminarOrden($Orden);
+
+		$jsonResponse = json_encode($respuesta);
+
+		echo $jsonResponse;
+	}
 }

@@ -164,4 +164,29 @@ class OrdenModel extends CI_Model {
 		return $response;
 	}
 
+
+	public function EliminarOrden($Orden){
+		$this->db->trans_start();
+		
+		$this->db->delete('Orden', array('IdOrden' => $Orden->IdOrden));
+
+		$this->db->trans_complete();
+
+		$respuesta = false;
+		if ($this->db->trans_status() === FALSE) {
+			$this->db->trans_rollback();
+			$respuesta =  FALSE;
+		} 
+		else {
+			$this->db->trans_commit();
+			$respuesta =  TRUE;
+		}
+
+		$response = array(
+			'respuesta' => $respuesta
+		);
+
+		return $response;
+	}
+
 }

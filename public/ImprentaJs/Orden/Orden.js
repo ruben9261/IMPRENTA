@@ -92,21 +92,21 @@ var GuardarOrden = function(){
 
 
 var EliminarOrden = function(IdOrden){
-    var Usuario = {
-        IdUsuario: IdUsuario
+    var Orden = {
+        IdOrden: IdOrden
     };
     $.ajax({
         type:"post",
-        url:"/EmpleadosController/EliminarEmpleado",
-        data: {Usuario:Usuario},
+        url:"/OrdenController/EliminarOrden",
+        data: {Orden:Orden},
         success: function(response){
             var response = JSON.parse(response);
             if(response.respuesta){
                 AlertNotify('', 'Exito', 'El registro se elimo correctamente', 'success');
-                var FiltrosEmpleado = {
+                var FiltrosOrden = {
                     Estado: "activo"
                 };
-                ListarEmpleados(FiltrosEmpleado);                
+                ListarOrdenes(null);             
             }else{
                 AlertNotify('', 'Error', 'Error al eliminar el registror', 'danger');
             }
