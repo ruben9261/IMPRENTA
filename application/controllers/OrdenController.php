@@ -94,10 +94,8 @@ class OrdenController extends CI_Controller {
 		$FiltrosOrden = $_POST["FiltrosOrden"];
 		$FiltrosOrden = (object)$FiltrosOrden;
 
-		$this->load->model('OrdenModel','OrdenModel');
-		$ListaOrdenes=$this->OrdenModel->ListarOrdenes($FiltrosOrden);
+		$ListaOrdenes=$this->OrdenModel->ListarOrdenes(null);
 
-		$this->load->model('EstadoModel','EstadoModel');
         $ListaEstados=$this->EstadoModel->ListarEstados();
 		
 		foreach($ListaOrdenes as $item){
@@ -120,6 +118,17 @@ class OrdenController extends CI_Controller {
 				$item->EstadoCotizacion = "Pendiente";
 				$item->btnColor = "btn-dark";
 			}
+		}
+
+		foreach($ListaOrdenes as $orden){
+			$orden->EstadoReunion1 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion1);
+			$orden->EstadoReunionColor1 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion1);
+			$orden->EstadoReunion2 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion2);
+			$orden->EstadoReunionColor2 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion2);
+			$orden->EstadoReunion3 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion3);
+			$orden->EstadoReunionColor3 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion3);
+			$orden->EstadoReunion4 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion4);
+			$orden->EstadoReunionColor4 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion4);
 		}
 
 		$jsonResponse = json_encode($ListaOrdenes);

@@ -39,6 +39,7 @@ class OrdenModel extends CI_Model {
 		$this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
 		$this->db->join('cliente c', 'o.IdCliente = c.IdCliente');
 		$this->db->join('Cotizacion cot', 'o.IdOrden = cot.IdOrden', 'left');
+		$this->db->order_by("o.IdOrden", "asc");
 		
 		
 		// if($FiltrosOrden!=null)

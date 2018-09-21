@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -73,8 +73,8 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th style="text-align: center;">N° Orden</th>
-                          <th style="text-align: center;">Descripción</th>
+                          <th style="text-align: center;">Nro Orden</th>
+                          <th style="text-align: center;">Descripci&oacuten</th>
                           <th style="text-align: center;">Cliente</th>
                           <th style="text-align: center;">Fecha Registro</th>
                           <th style="text-align: center;">Usuario</th>
@@ -207,23 +207,23 @@
                         <span class="fa fa-plus">{{item.EstadoCotizacion}}</span></a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=1'>
-                      <span class="fa fa-plus">Pendiente</span>
+                      <a class="btn {{item.EstadoReunionColor1}} btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=1'>
+                      <span class="fa fa-plus">{{item.EstadoReunion1}}</span>
                       </a>
                     </td>
                      <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=2'>
-                      <span class="fa fa-plus">Pendiente</span>
+                      <a class="btn {{item.EstadoReunionColor2}} btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=2'>
+                      <span class="fa fa-plus">{{item.EstadoReunion2}}</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=3'>
-                      <span class="fa fa-plus">Pendiente</span>
+                      <a class="btn {{item.EstadoReunionColor3}} btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=3'>
+                      <span class="fa fa-plus">{{item.EstadoReunion3}}</span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=4'>
-                        <span class="fa fa-plus">Pendiente</span>
+                        <a class="btn {{item.EstadoReunionColor4}} btn-sm" href='/ReunionesController/Index?IdOrden={{item.IdOrden}}&NroReunion=4'>
+                        <span class="fa fa-plus">{{item.EstadoReunion4}}</span>
                         </a>
                     </td>
                     <td style="text-align: center;">
