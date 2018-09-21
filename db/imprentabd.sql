@@ -31,7 +31,7 @@ CREATE TABLE `cliente` (
   `telefono` varchar(20) DEFAULT NULL,
   `tipo_cliente` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`IdCliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,'cliente1','2132143','servicios','av. arequipa','987789878','tipico');
+INSERT INTO `cliente` VALUES (1,'UNFV','2132143','servicios','av. arequipa','987789878','tipico'),(3,'PETRO PERU','555555','555555','555555','555555','555555');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +186,7 @@ CREATE TABLE `orden` (
 
 LOCK TABLES `orden` WRITE;
 /*!40000 ALTER TABLE `orden` DISABLE KEYS */;
-INSERT INTO `orden` VALUES (3,1,15,0,'1970-01-01 00:00:00','Primera Orden Modificada'),(4,1,15,0,'1970-01-01 00:00:00','Segunda Orden'),(5,1,15,0,'1970-01-01 00:00:00','Tercera Orden'),(12,1,12,0,'1970-01-01 00:00:00','Quinta Orden'),(13,1,12,0,'1970-01-01 00:00:00','Quinta Orden'),(14,1,12,0,'1970-01-01 00:00:00','Orden de Prueba 2'),(15,1,12,0,'2018-05-09 00:00:00','Orden Javichin'),(16,1,12,0,'2018-12-09 00:00:00','Orden Javichin Dos');
+INSERT INTO `orden` VALUES (3,1,15,0,'2018-01-17 00:00:00','Primera Orden Modificada'),(4,1,12,0,'1970-01-22 00:00:00','Segunda Orden'),(5,1,15,0,'1970-01-01 00:00:00','Tercera Orden'),(12,1,12,0,'1970-01-01 00:00:00','Quinta Orden'),(13,1,12,0,'1970-01-01 00:00:00','Quinta Orden'),(14,1,12,0,'1970-01-01 00:00:00','Orden de Prueba 2'),(15,1,12,0,'2018-05-09 00:00:00','Orden Javichin'),(16,1,12,0,'2018-12-09 00:00:00','Orden Javichin Dos');
 /*!40000 ALTER TABLE `orden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,14 +281,21 @@ CREATE TABLE `reunion` (
   `Descripcion` varchar(45) DEFAULT NULL,
   `IdEstado` int(11) NOT NULL,
   `NroReunion` int(11) DEFAULT NULL,
+  `IdTipoEntrega` int(11) NOT NULL,
+  `NombreContacto` varchar(45) DEFAULT NULL,
+  `FechaVisita` datetime DEFAULT NULL,
+  `Observaciones` varchar(200) DEFAULT NULL,
+  `IdTipoInteres` int(11) DEFAULT NULL,
+  `ProximaVisita` datetime DEFAULT NULL,
+  `TelefonoReferencial` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`IdReunion`),
   KEY `fk_Reunion_Orden1_idx` (`IdOrden`),
   KEY `fk_Reunion_Reunion1_idx` (`IdReunionPadre`),
   KEY `fk_Reunion_Estado1_idx` (`IdEstado`),
   CONSTRAINT `fk_Reunion_Estado1` FOREIGN KEY (`IdEstado`) REFERENCES `estado` (`idestado`),
   CONSTRAINT `fk_Reunion_Orden1` FOREIGN KEY (`IdOrden`) REFERENCES `orden` (`idorden`),
-  CONSTRAINT `fk_Reunion_Reunion1` FOREIGN KEY (`IdReunionPadre`) REFERENCES `reunion` (`idreunion`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_Reunion_Reunion1` FOREIGN KEY (`IdReunionPadre`) REFERENCES `reunion` (`IdReunion`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,6 +304,7 @@ CREATE TABLE `reunion` (
 
 LOCK TABLES `reunion` WRITE;
 /*!40000 ALTER TABLE `reunion` DISABLE KEYS */;
+INSERT INTO `reunion` VALUES (2,3,NULL,NULL,3,1,2,'kevin','2018-09-12 00:00:00','44444444444',1,'2018-09-05 00:00:00','44444444444'),(3,3,NULL,NULL,2,2,1,'Javicho','2018-09-14 00:00:00','wqewqewq',2,'2018-09-13 00:00:00','213213213'),(4,12,NULL,NULL,2,2,2,'44444444','2018-09-14 00:00:00','44444444',1,'2018-09-12 00:00:00','44444444');
 /*!40000 ALTER TABLE `reunion` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,6 +330,54 @@ LOCK TABLES `rol` WRITE;
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
 INSERT INTO `rol` VALUES (5,'Admin'),(6,'Empleado');
 /*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipoentrega`
+--
+
+DROP TABLE IF EXISTS `tipoentrega`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipoentrega` (
+  `IdTipoEntrega` int(11) NOT NULL AUTO_INCREMENT,
+  `DescTipoEntrega` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`IdTipoEntrega`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipoentrega`
+--
+
+LOCK TABLES `tipoentrega` WRITE;
+/*!40000 ALTER TABLE `tipoentrega` DISABLE KEYS */;
+INSERT INTO `tipoentrega` VALUES (1,'Físico'),(2,'Correo');
+/*!40000 ALTER TABLE `tipoentrega` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipointeres`
+--
+
+DROP TABLE IF EXISTS `tipointeres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipointeres` (
+  `IdTipoInteres` int(11) NOT NULL AUTO_INCREMENT,
+  `DescTipoInteres` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`IdTipoInteres`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipointeres`
+--
+
+LOCK TABLES `tipointeres` WRITE;
+/*!40000 ALTER TABLE `tipointeres` DISABLE KEYS */;
+INSERT INTO `tipointeres` VALUES (1,'Interes'),(2,'No hay interes');
+/*!40000 ALTER TABLE `tipointeres` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -364,4 +420,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-16 22:14:33
+-- Dump completed on 2018-09-20 20:19:17
