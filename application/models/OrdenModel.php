@@ -17,12 +17,29 @@ class OrdenModel extends CI_Model {
         $this->db->select('p.nombre');
 		$this->db->select('c.razonsocial');
 		$this->db->select('cot.IdEstado');
+		$this->db->select('case when EXISTS(select IFNULL(IdEstado,0) from reunion reu 
+						where reu.IdOrden = o.IdOrden and reu.NroReunion = 1)
+						then (select IdEstado from reunion reu where reu.IdOrden = o.IdOrden and reu.NroReunion = 1) 
+						else 0 end IdEstadoReunion1');
+		$this->db->select('case when EXISTS(select IdEstado from reunion reu 
+		where reu.IdOrden = o.IdOrden and reu.NroReunion = 2)
+		then (select IdEstado from reunion reu where reu.IdOrden = o.IdOrden and reu.NroReunion = 2) 
+		else 0 end IdEstadoReunion2');
+		$this->db->select('case when EXISTS(select IdEstado from reunion reu 
+		where reu.IdOrden = o.IdOrden and reu.NroReunion = 3)
+		then (select IdEstado from reunion reu where reu.IdOrden = o.IdOrden and reu.NroReunion = 3) 
+		else 0 end IdEstadoReunion3');
+		$this->db->select('case when EXISTS(select IdEstado from reunion reu 
+		where reu.IdOrden = o.IdOrden and reu.NroReunion = 4)
+		then (select IdEstado from reunion reu where reu.IdOrden = o.IdOrden and reu.NroReunion = 4) 
+		else 0 end IdEstadoReunion4');
 
 		$this->db->from('Orden o');
         $this->db->join('usuario u', 'o.IdEmpleado = u.IdUsuario');
 		$this->db->join('Personas p', 'u.IdPersona = p.IdPersona');
 		$this->db->join('cliente c', 'o.IdCliente = c.IdCliente');
 		$this->db->join('Cotizacion cot', 'o.IdOrden = cot.IdOrden', 'left');
+		
 		
 		// if($FiltrosOrden!=null)
         // $this->db->where('p.estado',$FiltrosOrden->Estado);

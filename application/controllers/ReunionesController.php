@@ -41,18 +41,7 @@ class ReunionesController extends CI_Controller {
 	  $data['ListaTipoEntrega'] = $ListaTipoEntrega;
 	  $data['Reunion'] = $Reunion;
 
-		if($NroReunion == 1){
-			$this->load->view("Reunion",$data);
-		}
-		if($NroReunion == 2){
-			$this->load->view("Reunion2",$data);
-		}
-		if($NroReunion == 3){
-			$this->load->view("Reunion3",$data);
-		}
-		if($NroReunion == 4){
-			$this->load->view("Reunion4",$data);
-		}
+	  $this->load->view("Reunion",$data);
 	}
 	
 	public function GuardarReunion(){

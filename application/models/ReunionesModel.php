@@ -164,4 +164,28 @@ class ReunionesModel extends CI_Model {
 
 		return $result;
 	}
+
+	public function ObtenerEstadoReunionColor($ListaEstados,$IdEstadoReunion){
+		$estadoReunionColor ="";
+		if($IdEstadoReunion==1 || $IdEstadoReunion==0){
+			$estadoReunionColor = "btn-dark";
+		}
+		if($IdEstadoReunion==2){
+			$estadoReunionColor = "btn-info";
+		}
+		if($IdEstadoReunion==3){
+			$estadoReunionColor = "btn-warning";
+		}
+		return $estadoReunionColor;
+	}
+
+	public function ObtenerEstadoReunion($ListaEstados,$IdEstadoReunion){
+		$estadoReunion = "Pendiente";
+		foreach($ListaEstados as $estado){
+			if($IdEstadoReunion==$estado->IdEstado){
+				$estadoReunion = $estado->EstadoDescripcion;
+			}
+		}
+		return $estadoReunion;
+	}
 }

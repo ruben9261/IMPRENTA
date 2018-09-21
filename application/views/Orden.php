@@ -99,23 +99,23 @@
                         <span class="fa fa-plus"></span><?php print($row->EstadoCotizacion);?></a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=1'>
-                      <span class="fa fa-plus">Pendiente</span>
+                      <a class="btn <?php print($row->EstadoReunionColor1);?> btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=1'>
+                      <span class="fa fa-plus"><?php print($row->EstadoReunion1);?></span>
                       </a>
                     </td>
                      <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=2'>
-                      <span class="fa fa-plus">Pendiente</span>
+                      <a class="btn <?php print($row->EstadoReunionColor2);?> btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=2'>
+                      <span class="fa fa-plus"><?php print($row->EstadoReunion2);?></span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                      <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=3'>
-                      <span class="fa fa-plus">Pendiente</span>
+                      <a class="btn <?php print($row->EstadoReunionColor3);?> btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=3'>
+                      <span class="fa fa-plus"><?php print($row->EstadoReunion3);?></span>
                       </a>
                     </td>
                     <td style="text-align: center;">
-                        <a class="btn btn-success btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=4'>
-                        <span class="fa fa-plus">Pendiente</span>
+                        <a class="btn <?php print($row->EstadoReunionColor4);?> btn-sm" href='/ReunionesController/Index?IdOrden=<?php print($row->IdOrden);?>&NroReunion=4'>
+                        <span class="fa fa-plus"><?php print($row->EstadoReunion4);?></span>
                         </a>
                     </td>
                     <td style="text-align: center;">

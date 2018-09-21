@@ -11,6 +11,11 @@ class OrdenController extends CI_Controller {
         {
 			header('Location: /LoginController');
 		}
+		$this->load->model('UsuarioModel','UsuarioModel');
+		$this->load->model('ClientesModel','ClientesModel');
+		$this->load->model('OrdenModel','OrdenModel');
+		$this->load->model('EstadoModel','EstadoModel');
+		$this->load->model('ReunionesModel','ReunionesModel');
 	}
 	
 	
@@ -18,20 +23,17 @@ class OrdenController extends CI_Controller {
         $this->load->library('session');
         $data['Usuario'] =$this->session->Usuario;
 
-        $this->load->model('UsuarioModel','UsuarioModel');
         $ListaUsuarios=$this->UsuarioModel->ListarUsuarios(null);
         $data['ListaUsuarios'] = $ListaUsuarios;
 
-		$this->load->model('ClientesModel','ClientesModel');
         $ListaClientes=$this->ClientesModel->ListarClientes(null);
         $data['ListaClientes'] = $ListaClientes;
 
-        $this->load->model('OrdenModel','OrdenModel');
         $ListaOrdenes=$this->OrdenModel->ListarOrdenes(null);
 
-		$this->load->model('EstadoModel','EstadoModel');
-        $ListaEstados=$this->EstadoModel->ListarEstados();
+		$ListaEstados=$this->EstadoModel->ListarEstados();
 		
+		//estado de cotizacion
 		foreach($ListaOrdenes as $item){
 			if(isset($item->IdEstado)){
 				foreach($ListaEstados as $item2){
@@ -54,12 +56,23 @@ class OrdenController extends CI_Controller {
 			}
 		}
 
+		foreach($ListaOrdenes as $orden){
+			$orden->EstadoReunion1 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion1);
+			$orden->EstadoReunionColor1 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion1);
+			$orden->EstadoReunion2 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion2);
+			$orden->EstadoReunionColor2 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion2);
+			$orden->EstadoReunion3 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion3);
+			$orden->EstadoReunionColor3 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion3);
+			$orden->EstadoReunion4 = $this->ReunionesModel->ObtenerEstadoReunion($ListaEstados,$orden->IdEstadoReunion4);
+			$orden->EstadoReunionColor4 = $this->ReunionesModel->ObtenerEstadoReunionColor($ListaEstados,$orden->IdEstadoReunion4);
+		}
+
         $data['ListaOrdenes'] = $ListaOrdenes;
         $this->load->view('Orden',$data);
-    }
+	}
+	
     
     public function ListarUsuarios(){
-        $this->load->model('UsuarioModel','UsuarioModel');
 		$ListaUsuarios=$this->UsuarioModel->ListarUsuarios(null);
 
 		$jsonResponse = json_encode($ListaUsuarios);
